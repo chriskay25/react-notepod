@@ -1,9 +1,9 @@
-export default function reducer(state = {podcast: null}, action) {
+export default function reducer(state = {podcasts: []}, action) {
     switch (action.type) {
-      case 'GET_PODCAST':
+      case 'GET_PODCASTS':
         return {
           ...state,
-          podcast: action.payload
+          podcasts: action.payload
         }
       default:
         return state
