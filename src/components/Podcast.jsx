@@ -1,9 +1,9 @@
 import React from 'react'
 
-const Podcast = () => {
+const Podcast = ({ id, name }) => {
   return (
     <div>
-      Podcast
+      {name}
     </div>
   )
 }
