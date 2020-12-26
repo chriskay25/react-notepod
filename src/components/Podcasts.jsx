@@ -22,7 +22,7 @@ const Podcasts = () => {
             dispatch({type: 'GET_PODCASTS', payload: pods})
           }
         })
-    })
+    }, [state.podcasts])
 
     const handleClick = (e) => {
         e.preventDefault()
@@ -42,7 +42,7 @@ const Podcasts = () => {
         // <div>nothing</div>
         <div>
             {state.podcasts.map(pod => (
-                <Podcast id={pod.id} name={pod.name} />
+                <Podcast key={pod.id} id={pod.id} name={pod.name} />
             ))}
             <button onClick={handleClick}>Set Podcasts</button>
         </div>
