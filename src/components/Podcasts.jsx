@@ -1,49 +1,35 @@
-import React, { useEffect, useReducer, useState } from 'react'
-import reducer from '../reducer'
+import React, { useState } from 'react'
 import Podcast from './Podcast'
+import { apiKey } from '../secret'
 
 const Podcasts = () => {
 
-    const initialState = { podcasts: [] }
+    const [podData, setPodData] = useState([])
 
-    // const [podcasts, setPodcasts] = useState([])
-    const [state, dispatch] = useReducer(
-        reducer, 
-        initialState
-    )
-
-    useEffect(() => {
-        fetch('http://localhost:3000/api/v1/podcasts')
-        .then(resp => resp.json())
-        .then(pods => {
-          if (pods.error) {
-            alert(pods.error)
-          } else {
-            dispatch({type: 'GET_PODCASTS', payload: pods})
-          }
-        })
-    }, [state.podcasts])
 
     const handleClick = (e) => {
         e.preventDefault()
-        console.log("Podcasts? ", state.podcasts)
-        // return dispatch({type: 'GET_PODCASTS'})
+        fetch("https://listen-api.listennotes.com/api/v2/genres", {
+            method: 'GET',
+            headers: {
+                "X-ListenAPI-Key": apiKey
+            }
+        })
+            .then(resp => resp.json())
+            .then(data => {
+                setPodData(data.podcasts)
+                console.log("data: ", data)
+            })
+            console.log("podData: ", podData)
     }
 
     return (
-        // podcasts ? 
-        // <div>
-        //     {podcasts.map((pod, idx) => (
-        //         <div key={idx}>
-        //             {pod.name}
-        //         </div>
-        //     ))}
-        // </div> :
-        // <div>nothing</div>
-        <div>
-            {state.podcasts.map(pod => (
-                <Podcast key={pod.id} id={pod.id} name={pod.name} />
-            ))}
+        <div className='podcasts'>
+            {podData ? podData.map(pod => (
+                <ul>
+                    <li><Podcast key={pod.id} data={pod}/></li>
+                </ul>
+            )): <div>empty</div>}
             <button onClick={handleClick}>Set Podcasts</button>
         </div>
     )
