@@ -1,58 +1,67 @@
-* {
-  box-sizing: border-box;
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+  margin: 0;
+  padding: 0;
 }
 
 html {
+  box-sizing: border-box;
   font-size: 16px;
+  height: 100%;
+}
+
+body {
+  height: 100%;
+  background: radial-gradient(#fff, rgb(208, 219, 219));
+}
+
+#root {
+  height: 100%;
+}
+
+.App {
+  text-align: center;
+  height: 100%;
+  overflow-x: hidden;
+}
+
+nav h1 {
+  font-size: calc(28px + 2vmin);
+  font-weight: 300;
+}
+
+.scroller {
+  width: 90vw;
+  height: 250px;
+  overflow-x: scroll;
+  overflow-y: hidden;
+  margin: 0 auto;
+}
+
+.scroller-podcasts {
+  display: flex;
+  height: 100%;
+  width: 100%;
+}
+
+.scroller-podcast {
+  height: 100%;
+  width: auto;
+}
+
+.scroller-podcast-image {
+  height: 100%;
+  object-fit: contain;
+}
+
+.scroller-podcast img {
+  height: 100%;
 }
 
 @media screen and (max-width: 700px) {
   html {
     font-size: 8px;
   }
-}
-
-.App {
-  text-align: center;
-  height: 100%;
-  min-height: 100vh;
-  width: 100vw;
-  max-width: 100vw;
-  overflow-x: hidden;
-  background-color: #95ced8;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.podcasts {
-  display: flex;
-  width: 850px;
-  overflow: collapse;
-  justify-content: space-between;
-}
-
-.scroller {
-    width: 90vw;
-    overflow-x: scroll;
-    margin: 0 auto;
 }
