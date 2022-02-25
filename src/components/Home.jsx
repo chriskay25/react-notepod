@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
-import Podcast from "./Podcast";
+// import Podcast from "./Podcast";
+import Scroller from "./Scroller";
 
 const Home = () => {
   const [popularData, setPopularData] = useState(null);
+  const [curatedData, setCuratedData] = useState(null);
 
   const popular = async () => {
     try {
@@ -16,9 +18,22 @@ const Home = () => {
     }
   };
 
+  const curated = async () => {
+    try {
+      const response = await fetch(
+        "http://localhost:3000/api/v1/search?type=curated"
+      );
+      const data = await response.json();
+      setCuratedData(data.curated_lists.slice(0, 3));
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   useEffect(() => {
     const populateHome = async () => {
       await popular();
+      await curated();
     };
 
     populateHome();
@@ -33,13 +48,11 @@ const Home = () => {
         justifyContent: "center",
       }}
     >
-      <div className="scroller">
-        <h3>Popular</h3>
-        <div className="scroller-podcasts">
-          {popularData &&
-            popularData.map((pod) => <Podcast key={pod.id} data={pod} />)}
-        </div>
-      </div>
+      <Scroller title="Popular" data={popularData} />
+      {curatedData &&
+        curatedData.map((data) => (
+          <Scroller title={data.title} data={data.podcasts} />
+        ))}
     </div>
   );
 };
