@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from "react";
-// import Podcast from "./Podcast";
-import Scroller from "./Scroller";
+import Podcast from "./Podcast";
+import GenreNav from "./GenreNav";
 
 const Home = () => {
   const [popularData, setPopularData] = useState(null);
-  const [curatedData, setCuratedData] = useState(null);
+  const [genres, setGenres] = useState(null);
+  const [genre, setGenre] = useState(null);
 
-  const popular = async () => {
+  const getPopular = async () => {
     try {
       const response = await fetch(
         "http://localhost:3000/api/v1/search?type=popular"
@@ -18,13 +19,26 @@ const Home = () => {
     }
   };
 
-  const curated = async () => {
+  const getGenres = async () => {
     try {
       const response = await fetch(
-        "http://localhost:3000/api/v1/search?type=curated"
+        "http://localhost:3000/api/v1/search?type=genres"
       );
       const data = await response.json();
-      setCuratedData(data.curated_lists.slice(0, 3));
+      setGenres(data.genres);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const getNewGenre = async (newGenre) => {
+    setGenre(newGenre);
+    try {
+      const response = await fetch(
+        `http://localhost:3000/api/v1/search?type=popular&genre_id=${newGenre.id}`
+      );
+      const data = await response.json();
+      setPopularData(data.podcasts);
     } catch (err) {
       console.log(err);
     }
@@ -32,27 +46,27 @@ const Home = () => {
 
   useEffect(() => {
     const populateHome = async () => {
-      await popular();
-      await curated();
+      await getPopular();
+      await getGenres();
     };
 
     populateHome();
   }, []);
 
   return (
-    <div
-      style={{
-        height: "90%",
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "center",
-      }}
-    >
-      <Scroller title="Popular" data={popularData} />
-      {curatedData &&
-        curatedData.map((data) => (
-          <Scroller title={data.title} data={data.podcasts} />
-        ))}
+    <div style={{ display: "flex" }}>
+      <GenreNav genres={genres} getNewGenre={getNewGenre} />
+      <div style={{ padding: "2rem 0 0 3rem" }}>
+        <h3 style={{ fontWeight: 400 }}>{genre && genre.name}</h3>
+        <ul className="home-podcast-list">
+          {popularData &&
+            popularData.map((pod) => (
+              <li key={pod.id}>
+                <Podcast data={pod} />
+              </li>
+            ))}
+        </ul>
+      </div>
     </div>
   );
 };
