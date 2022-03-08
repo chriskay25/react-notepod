@@ -54,17 +54,13 @@ const Home = () => {
   }, []);
 
   return (
-    <div style={{ display: "flex" }}>
+    <div className="home">
       <GenreNav genres={genres} getNewGenre={getNewGenre} />
-      <div style={{ padding: "2rem 0 0 3rem" }}>
+      <div className="home-podcast-list-container">
         <h3 style={{ fontWeight: 400 }}>{genre && genre.name}</h3>
         <ul className="home-podcast-list">
           {popularData &&
-            popularData.map((pod) => (
-              <li key={pod.id}>
-                <Podcast data={pod} />
-              </li>
-            ))}
+            popularData.map((pod) => <Podcast key={pod.id} data={pod} />)}
         </ul>
       </div>
     </div>
