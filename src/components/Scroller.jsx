@@ -1,4 +1,4 @@
-import Podcast from "./Podcast";
+import PodcastPreview from "./PodcastPreview";
 
 const Scroller = ({ title, data }) => {
   return (
@@ -10,7 +10,8 @@ const Scroller = ({ title, data }) => {
       </h3>
       <div className="scroller">
         <div className="scroller-podcasts">
-          {data && data.map((pod) => <Podcast key={pod.id} data={pod} />)}
+          {data &&
+            data.map((pod) => <PodcastPreview key={pod.id} data={pod} />)}
         </div>
       </div>
     </div>

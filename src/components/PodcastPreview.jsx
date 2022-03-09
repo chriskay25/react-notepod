@@ -1,7 +1,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 
-const Podcast = ({ data }) => {
+const PodcastPreview = ({ data }) => {
   return (
     <motion.li className="podcast-preview">
       <div className="podcast-preview-image">
@@ -11,4 +11,4 @@ const Podcast = ({ data }) => {
   );
 };
 
-export default Podcast;
+export default PodcastPreview;

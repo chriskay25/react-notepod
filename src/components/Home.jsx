@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import Podcast from "./Podcast";
+import PodcastPreview from "./PodcastPreview";
 import GenreNav from "./GenreNav";
 
 const Home = () => {
@@ -60,7 +60,9 @@ const Home = () => {
         <h3 style={{ fontWeight: 400 }}>{genre && genre.name}</h3>
         <ul className="home-podcast-list">
           {popularData &&
-            popularData.map((pod) => <Podcast key={pod.id} data={pod} />)}
+            popularData.map((pod) => (
+              <PodcastPreview key={pod.id} data={pod} />
+            ))}
         </ul>
       </div>
     </div>
