@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from "react";
 import PodcastPreview from "./PodcastPreview";
 import GenreNav from "./GenreNav";
+import Podcast from "./Podcast";
 
 const Home = () => {
   const [popularData, setPopularData] = useState(null);
   const [genres, setGenres] = useState(null);
   const [genre, setGenre] = useState(null);
+  const [podcast, setPodcast] = useState(null);
 
   const getPopular = async () => {
     try {
@@ -44,6 +46,18 @@ const Home = () => {
     }
   };
 
+  const getPodcast = async (podcastId) => {
+    try {
+      const response = await fetch(
+        `http://localhost:3000/api/v1/search?type=podcast&id=${podcastId}`
+      );
+      const data = await response.json();
+      setPodcast(data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   useEffect(() => {
     const populateHome = async () => {
       await getPopular();
@@ -55,16 +69,31 @@ const Home = () => {
 
   return (
     <div className="home">
-      <GenreNav genres={genres} getNewGenre={getNewGenre} />
-      <div className="home-podcast-list-container">
-        <h3 style={{ fontWeight: 400 }}>{genre && genre.name}</h3>
-        <ul className="home-podcast-list">
-          {popularData &&
-            popularData.map((pod) => (
-              <PodcastPreview key={pod.id} data={pod} />
-            ))}
-        </ul>
-      </div>
+      {podcast && <Podcast podcast={podcast} />}
+      {!podcast && <GenreNav genres={genres} getNewGenre={getNewGenre} />}
+      {!podcast && (
+        <div className="home-podcast-list-container">
+          <h3
+            style={{
+              fontWeight: 300,
+              margin: "2rem 0 2rem 0",
+              textAlign: "center",
+            }}
+          >
+            {genre && genre.name}
+          </h3>
+          <ul className="home-podcast-list">
+            {popularData &&
+              popularData.map((pod) => (
+                <PodcastPreview
+                  key={pod.id}
+                  data={pod}
+                  getPodcast={getPodcast}
+                />
+              ))}
+          </ul>
+        </div>
+      )}
     </div>
   );
 };
