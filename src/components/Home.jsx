@@ -49,7 +49,7 @@ const Home = () => {
   const getPodcast = async (podcastId) => {
     try {
       const response = await fetch(
-        `http://localhost:3000/api/v1/search?type=podcast&id=${podcastId}`
+        `http://localhost:3000/api/v1/search?type=podcast&podcast_id=${podcastId}`
       );
       const data = await response.json();
       setPodcast(data);
