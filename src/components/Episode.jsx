@@ -1,4 +1,5 @@
 import React from "react";
+import AudioPlayer from "./AudioPlayer";
 
 const Episode = ({ episode }) => {
   const pad2Digits = (digits) => digits.toString().padStart(2, "0");
@@ -27,6 +28,7 @@ const Episode = ({ episode }) => {
         dangerouslySetInnerHTML={{ __html: episode.description }}
         className="episode-description"
       />
+      <AudioPlayer audioUrl={episode.audio} />
     </li>
   );
 };
