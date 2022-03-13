@@ -15,10 +15,7 @@ const Episode = ({ episode }) => {
   };
 
   return (
-    <li
-      className="episode"
-      style={{ margin: "10px 0", borderBottom: "1px solid gray" }}
-    >
+    <li className="episode">
       <h4>{episode.title}</h4>
       <div style={{ display: "flex", marginBottom: ".5rem" }}>
         <span>{episodeDate(episode.pub_date_ms)}</span>
@@ -26,7 +23,10 @@ const Episode = ({ episode }) => {
           {episodeLength(episode.audio_length_sec)}
         </span>
       </div>
-      <p dangerouslySetInnerHTML={{ __html: episode.description }}></p>
+      <div
+        dangerouslySetInnerHTML={{ __html: episode.description }}
+        className="episode-description"
+      />
     </li>
   );
 };
