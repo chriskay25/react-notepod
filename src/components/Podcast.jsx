@@ -1,25 +1,23 @@
 import React from "react";
+import Episode from "./Episode";
 
 const Podcast = ({ podcast }) => {
   return (
     <div className="podcast">
-      <div
-        className="podcast-title"
-        style={{ display: "flex", alignItems: "baseline" }}
-      >
+      <div className="podcast-title">
         <img
-          style={{ height: "75px" }}
+          style={{ height: "50px" }}
           src={podcast.image}
           alt="podcast-thumbnail"
         />
-        <h2 style={{ fontSize: "20px" }}>{podcast.title}</h2>
+        <h2 style={{ fontSize: "2.5rem" }}>{podcast.title}</h2>
       </div>
-      <p>{podcast.description}</p>
+      <p style={{ margin: "15px 0" }}>{podcast.description}</p>
       <div>
-        <h4>Episodes</h4>
+        <h3>EPISODES</h3>
         <ul>
           {podcast.episodes.map((episode) => (
-            <li key={episode.id}>{episode.title}</li>
+            <Episode key={episode.id} episode={episode} />
           ))}
         </ul>
       </div>
