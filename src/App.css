@@ -115,6 +115,23 @@ ul {
 
 .podcast {
   padding: 2rem;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.podcast-title {
+  display: flex;
+  align-items: flex-end;
+}
+
+.episode {
+  margin: 10px 0;
+  border: 1px solid gray;
+  padding: 1rem;
+}
+
+.episode-description p {
+  margin: 10px 0 10px 0;
 }
 
 .scroller-container {
