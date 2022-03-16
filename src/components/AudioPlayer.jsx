@@ -32,6 +32,16 @@ const AudioPlayer = ({ audioUrl, audioDuration }) => {
     startTimer();
   };
 
+  const skip = (val) => {
+    const t = audioRef.current.currentTime;
+    clearInterval(intervalRef.current);
+    audioRef.current.currentTime = t + val;
+    setProgress(audioRef.current.currentTime.toFixed(0));
+    if (isPlaying) {
+      startTimer();
+    }
+  };
+
   const formatTime = (t) => {
     const pad2Digits = (digits) => digits.toString().padStart(2, "0");
     const minutes = Math.floor(t / 60);
@@ -61,7 +71,11 @@ const AudioPlayer = ({ audioUrl, audioDuration }) => {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
     >
-      <AudioControls isPlaying={isPlaying} setIsPlaying={setIsPlaying} />
+      <AudioControls
+        isPlaying={isPlaying}
+        setIsPlaying={setIsPlaying}
+        skip={skip}
+      />
       <div
         style={{
           width: "100%",

@@ -1,8 +1,11 @@
 import { motion } from "framer-motion";
 
-const JumpButton = ({ direction }) => {
+const JumpButton = ({ direction, skip }) => {
   return (
-    <div style={{ position: "relative", margin: "0 40px" }}>
+    <div
+      style={{ position: "relative", margin: "0 40px" }}
+      onClick={() => skip(direction === "back" ? -15 : 15)}
+    >
       <motion.svg
         className={`jump-button ${direction}`}
         height="40px"
