@@ -4,17 +4,14 @@ import Episode from "./Episode";
 const Podcast = ({ podcast }) => {
   return (
     <div className="podcast">
-      <div className="podcast-title">
-        <img
-          style={{ height: "50px" }}
-          src={podcast.image}
-          alt="podcast-thumbnail"
-        />
-        <h2 style={{ fontSize: "2.5rem" }}>{podcast.title}</h2>
+      <div className="podcast-title-grid">
+        <div className="podcast-title-image">
+          <img src={podcast.thumbnail} alt="podcast-thumbnail" />
+        </div>
+        <h2 className="podcast-title">{podcast.title}</h2>
+        <p className="podcast-description">{podcast.description}</p>
       </div>
-      <p style={{ margin: "15px 0" }}>{podcast.description}</p>
       <div>
-        <h3>EPISODES</h3>
         <ul>
           {podcast.episodes.map((episode) => (
             <Episode key={episode.id} episode={episode} />
