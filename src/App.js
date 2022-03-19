@@ -1,11 +1,12 @@
 import "./App.css";
+import Header from "./components/Header";
 import Home from "./components/Home";
 import Footer from "./components/Footer";
 
 function App() {
   return (
     <div className="App">
-      <h1 className="app-title">NOTEPOD</h1>
+      <Header />
       <Home />
       <Footer />
     </div>
