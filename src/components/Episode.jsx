@@ -1,10 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import AudioPlayer from "./AudioPlayer";
+import calendar from "../assets/blue-calendar.png";
+import clock from "../assets/blue-clock.png";
 
 const Episode = ({ episode }) => {
-  const pad2Digits = (digits) => digits.toString().padStart(2, "0");
+  const [selected, setSelected] = useState(null);
+  const pad2Digits = (digits) => digits.toString().padStart(2, "0"); // Puts 0's before single dgts
 
-  const episodeLength = (length) => {
+  const episodeDuration = (length) => {
     const minutes = Math.floor(length / 60);
     const seconds = length % 60;
     return `${minutes}:${pad2Digits(seconds)}`;
@@ -16,19 +19,31 @@ const Episode = ({ episode }) => {
   };
 
   return (
-    <li className="episode">
-      <h4>{episode.title}</h4>
-      <div style={{ display: "flex", marginBottom: ".5rem" }}>
-        <span>{episodeDate(episode.pub_date_ms)}</span>
-        <span style={{ marginLeft: "1rem" }}>
-          {episodeLength(episode.audio_length_sec)}
-        </span>
+    <li
+      className={`episode ${selected ? "selected" : ""}`}
+      style={{ maxHeight: selected ? "2000px" : "170px" }}
+    >
+      <div style={{ cursor: "pointer" }} onClick={() => setSelected(!selected)}>
+        <h4 style={{ fontSize: "1.4rem", fontWeight: "400" }}>
+          {episode.title}
+        </h4>
+        <div style={{ display: "flex", margin: ".3rem 0 .5rem 0" }}>
+          <img className="episode-icon" src={calendar} alt="calendar" />
+          <span>{episodeDate(episode.pub_date_ms)}</span>
+          <img className="episode-icon" src={clock} alt="clock" />
+          <span>{episodeDuration(episode.audio_length_sec)}</span>
+        </div>
+        <div
+          dangerouslySetInnerHTML={{ __html: episode.description }}
+          className="episode-description"
+        />
       </div>
-      <div
-        dangerouslySetInnerHTML={{ __html: episode.description }}
-        className="episode-description"
-      />
-      <AudioPlayer audioUrl={episode.audio} />
+      {selected && (
+        <AudioPlayer
+          audioUrl={episode.audio}
+          audioDuration={episodeDuration(episode.audio_length_sec)}
+        />
+      )}
     </li>
   );
 };
