@@ -14,25 +14,42 @@ html {
 
 body {
   height: 100%;
-  background: radial-gradient(#fff, rgb(208, 219, 219));
+  background: #ffffff;
 }
 
 #root {
   height: 100%;
+  --primary-font: "Montserrat";
+  --text-font: "Righteous";
+  --gray-text: #505050;
+  --gray-background: #eeecec;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--primary-font);
 }
 
 .App {
   height: 100vh;
   overflow-x: hidden;
+  font-family: Laksaman Bold;
+  /* font-family: Liberation Sans; */
+  /* font-family: Meera; */
 }
 
 .app-title {
   text-align: center;
   font-size: calc(28px + 2vmin);
   font-weight: 300;
-  color: white;
-  text-shadow: 2px 2px 2px rgb(0, 0, 0);
+  color: rgb(255, 255, 255);
+  text-shadow: 0px 1px 3px rgb(0, 0, 0);
   border-bottom: 1px solid rgba(204, 182, 182, 0.774);
+  background: #fff;
 }
 
 ul {
@@ -47,15 +64,14 @@ ul {
 .genre-nav {
   width: 25%;
   max-width: 400px;
-  background: linear-gradient(90deg, rgb(138, 138, 138), rgb(190, 190, 190));
-  /* background: linear-gradient(-90deg, rgb(173, 193, 230), rgb(147, 147, 255)); */
+  background: #eeecec;
+  color: var(--gray-text);
   padding: 2rem 1rem 1rem 1rem;
 }
 
 .genre-nav h2 {
-  font-weight: 300;
+  font-weight: 400;
   font-size: 2.2rem;
-  color: white;
 }
 
 .genre-list {
@@ -65,15 +81,16 @@ ul {
 .genre-list li {
   cursor: pointer;
   margin-bottom: 0.5rem;
-  color: white;
   font-size: 1.3rem;
-  font-weight: 600;
+  font-weight: 400;
+  font-family: var(--primary-font);
   transition: 0.2s;
 }
 
 .genre-list li:hover {
-  transform: scale(1.2);
-  transform-origin: left;
+  transform: scale(1.1);
+  transform-origin: 0;
+  color: #000;
 }
 
 .home-podcast-list-container {
@@ -115,23 +132,146 @@ ul {
 
 .podcast {
   padding: 2rem;
+  width: 98%;
   max-width: 1100px;
   margin: 0 auto;
 }
 
+.podcast-title-grid {
+  display: grid;
+  justify-content: center;
+  column-gap: 20px;
+  grid-template-areas:
+    "image title title title"
+    "image description description description";
+}
+
+.podcast-title-image {
+  grid-area: image;
+  margin: 0 auto;
+}
+
+.podcast-title-image img {
+  border-radius: 8%;
+}
+
 .podcast-title {
-  display: flex;
-  align-items: flex-end;
+  grid-area: title;
+  font: clamp(14px, 3.5vw, 40px) var(--primary-font);
+}
+
+.podcast-description {
+  grid-area: description;
+  font-size: clamp(12px, 2.2vw, 25px);
+  font-family: PT Sans;
+  max-width: 45ch;
+  color: rgb(80, 80, 80);
 }
 
 .episode {
-  margin: 10px 0;
-  border: 1px solid gray;
+  position: relative;
+  margin: 15px 0;
   padding: 1rem;
+  background: #eeecec;
+  color: rgb(51, 51, 51);
+  overflow: hidden;
+  transition: 0.05s ease-in-out;
+  font-family: var(--primary-font);
+  max-height: 170px;
+}
+
+.episode.selected,
+.episode.selected:hover {
+  max-height: 2000px;
+  box-shadow: 0px 0px 4px black;
+  transition: 0.3s ease-in-out;
+}
+
+.episode:hover {
+  box-shadow: 0px 0px 2px black;
+  transition: 0.3s ease-in-out;
+}
+
+.episode::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 30%;
+  background: linear-gradient(rgba(255, 255, 255, 0), rgba(255, 255, 255, 1));
+}
+
+.episode.selected::after {
+  display: none;
 }
 
 .episode-description p {
   margin: 10px 0 10px 0;
+  overflow: hidden;
+  display: inline-block;
+  width: calc(100%);
+}
+
+.episode-icon {
+  height: 1rem;
+  margin: 0 0.5rem 0 1rem;
+}
+
+.audio-player {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  border-radius: 14px;
+  padding: 25px 10px;
+  border: 3px solid blue;
+  background: black;
+}
+
+.audio-player svg {
+  cursor: pointer;
+}
+
+line {
+  stroke-linecap: round;
+}
+
+.audio-player input {
+  width: 100%;
+  margin: 0px;
+  cursor: pointer;
+}
+
+.audio-controls {
+  display: flex;
+}
+
+.pause-play-button {
+  overflow: visible;
+}
+
+.jump-button {
+  overflow: visible;
+}
+
+.footer {
+  padding: 0 0 1rem 1rem;
+}
+
+.menu-hamburger {
+  cursor: pointer;
+  position: absolute;
+  left: 10px;
+  top: calc(50% - 20px);
+}
+
+.menu-hamburger svg {
+  overflow: visible;
+  filter: drop-shadow(0px 1px 1px #000);
+}
+
+.menu-hamburger path {
+  transition: 0.3s ease-in-out;
 }
 
 .scroller-container {
@@ -148,9 +288,16 @@ ul {
   display: flex;
 }
 
+@media screen and (max-width: 600px) {
+  .podcast-title-grid {
+    grid-template-areas: "image" "title" "description";
+    row-gap: 8px;
+  }
+}
+
 @media screen and (max-width: 700px) {
   html {
-    font-size: 8px;
+    font-size: 12px;
   }
   .genre-nav {
     display: none;
