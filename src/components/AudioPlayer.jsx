@@ -80,37 +80,27 @@ const AudioPlayer = ({ audioUrl, audioDuration }) => {
         style={{
           width: "100%",
           display: "flex",
-          marginTop: "20px",
+          justifyContent: "space-between",
+          margin: "15px 0 5px 0",
+          color: "white",
           position: "relative",
+          fontSize: "1.1rem",
         }}
       >
-        <span
-          style={{
-            color: "white",
-            margin: "0 10px",
-            width: "8rem",
-            fontSize: "1.1rem",
-            position: "absolute",
-            top: "-100%",
-            left: 0,
-          }}
-        >
-          {formatTime(progress)} / {audioDuration}
-        </span>
-        <input
-          type="range"
-          step="1"
-          min="0"
-          value={progress}
-          max={
-            audioRef.current.duration
-              ? audioRef.current.duration
-              : audioDuration
-          }
-          onChange={(e) => onScrub(e.target.value)}
-          onMouseUp={onScrubEnd}
-        />
+        <span>{formatTime(progress)}</span>
+        <span>{audioDuration}</span>
       </div>
+      <input
+        type="range"
+        step="1"
+        min="0"
+        value={progress}
+        max={
+          audioRef.current.duration ? audioRef.current.duration : audioDuration
+        }
+        onChange={(e) => onScrub(e.target.value)}
+        onMouseUp={onScrubEnd}
+      />
     </motion.div>
   );
 };
