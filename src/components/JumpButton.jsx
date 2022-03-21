@@ -12,6 +12,7 @@ const JumpButton = ({ direction, skip }) => {
         stroke="white"
         strokeWidth="3px"
         strokeLinecap={"round"}
+        fill="transparent"
       >
         <motion.path
           className={`jump-${direction}`}
