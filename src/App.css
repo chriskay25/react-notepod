@@ -42,6 +42,13 @@ h6 {
   /* font-family: Meera; */
 }
 
+.app-header {
+  width: 100%;
+  position: sticky;
+  top: 0;
+  z-index: 2;
+}
+
 .app-title {
   text-align: center;
   font-size: calc(28px + 2vmin);
@@ -192,18 +199,32 @@ ul {
   transition: 0.3s ease-in-out;
 }
 
-.episode::after {
-  content: "";
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 30%;
-  background: linear-gradient(rgba(255, 255, 255, 0), rgba(255, 255, 255, 1));
+.episode-top {
+  cursor: pointer;
 }
 
-.episode.selected::after {
-  display: none;
+.episode-description {
+  position: relative;
+  height: 100%;
+}
+
+.episode-description::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    #eeecec00 0%,
+    #eeececb4 20%,
+    var(--gray-background)
+  );
+}
+
+.episode-description.selected::after {
+  background: transparent;
 }
 
 .episode-description p {
@@ -216,6 +237,12 @@ ul {
 .episode-icon {
   height: 1rem;
   margin: 0 0.5rem 0 1rem;
+}
+
+.expanded-episode {
+  width: 100%;
+  height: 100%;
+  background: red;
 }
 
 .audio-player {
@@ -251,6 +278,19 @@ line {
 }
 
 .jump-button {
+  position: relative;
+  cursor: pointer;
+}
+
+.jump-button.back {
+  margin: 0 50px;
+}
+
+.jump-button.forward {
+  margin: 0 45px;
+}
+
+.jump-button svg {
   overflow: visible;
 }
 
