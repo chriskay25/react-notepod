@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import AudioPlayer from "./AudioPlayer";
 import calendar from "../assets/blue-calendar.png";
 import clock from "../assets/blue-clock.png";
-
 const Episode = ({ episode }) => {
   const [selected, setSelected] = useState(null);
   const pad2Digits = (digits) => digits.toString().padStart(2, "0"); // Puts 0's before single dgts
@@ -21,13 +20,22 @@ const Episode = ({ episode }) => {
   return (
     <li
       className={`episode ${selected ? "selected" : ""}`}
-      style={{ maxHeight: selected ? "2000px" : "170px" }}
+      style={{ height: selected ? "100%" : "170px" }}
     >
-      <div style={{ cursor: "pointer" }} onClick={() => setSelected(!selected)}>
+      <div
+        className={`episode-top ${selected ? "selected" : ""}`}
+        onClick={() => setSelected(!selected)}
+      >
         <h4 style={{ fontSize: "1.4rem", fontWeight: "400" }}>
           {episode.title}
         </h4>
-        <div style={{ display: "flex", margin: ".3rem 0 .5rem 0" }}>
+        <div
+          style={{
+            display: "flex",
+            margin: ".3rem 0 .5rem 0",
+            fontStyle: "italic",
+          }}
+        >
           <img className="episode-icon" src={calendar} alt="calendar" />
           <span>{episodeDate(episode.pub_date_ms)}</span>
           <img className="episode-icon" src={clock} alt="clock" />
@@ -35,7 +43,7 @@ const Episode = ({ episode }) => {
         </div>
         <div
           dangerouslySetInnerHTML={{ __html: episode.description }}
-          className="episode-description"
+          className={`episode-description ${selected ? "selected" : ""}`}
         />
       </div>
       {selected && (
