@@ -52,7 +52,14 @@ const lineVariant2 = {
 
 const lineVariant3 = {
   initial: { opacity: 0, x1: 44, y1: 20, x2: 44, y2: 60 },
-  pause: { opacity: 0 },
+  pause: {
+    opacity: 0,
+    stroke: "var(--gray-text)",
+    x1: 24,
+    y1: 4,
+    x2: 24,
+    y2: 36,
+  },
   play: {
     opacity: 1,
     x1: 0,

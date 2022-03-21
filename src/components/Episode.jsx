@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import AudioPlayer from "./AudioPlayer";
 import calendar from "../assets/blue-calendar.png";
 import clock from "../assets/blue-clock.png";
-const Episode = ({ episode }) => {
+import noteIcon from "../assets/note-icon-gray.png";
+const Episode = ({ episode, expandEpisode }) => {
   const [selected, setSelected] = useState(null);
   const pad2Digits = (digits) => digits.toString().padStart(2, "0"); // Puts 0's before single dgts
 
@@ -22,6 +23,20 @@ const Episode = ({ episode }) => {
       className={`episode ${selected ? "selected" : ""}`}
       style={{ height: selected ? "100%" : "170px" }}
     >
+      <button
+        style={{
+          width: "fit-content",
+          height: "auto",
+          border: "none",
+          cursor: "pointer",
+          position: "absolute",
+          top: "5px",
+          right: "5px",
+        }}
+        onClick={() => expandEpisode(episode)}
+      >
+        <img src={noteIcon} alt="note-icon" className="note-icon" />
+      </button>
       <div
         className={`episode-top ${selected ? "selected" : ""}`}
         onClick={() => setSelected(!selected)}
