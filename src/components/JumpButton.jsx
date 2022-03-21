@@ -3,17 +3,15 @@ import { motion } from "framer-motion";
 const JumpButton = ({ direction, skip }) => {
   return (
     <div
-      style={{ position: "relative", margin: "0 40px" }}
+      className={`jump-button ${direction}`}
       onClick={() => skip(direction === "back" ? -15 : 15)}
     >
-      <motion.svg
-        className={`jump-button ${direction}`}
+      <svg
         height="40px"
         width="40px"
         stroke="white"
         strokeWidth="3px"
         strokeLinecap={"round"}
-        whileTap={{ strokeWidth: "6px", stroke: "blue" }}
       >
         <motion.path
           className={`jump-${direction}`}
@@ -23,7 +21,7 @@ const JumpButton = ({ direction, skip }) => {
               : "M 40 20 A 20 20 0 1 0 20 40 M 40 20 L 30 14 M 40 20 L 46 10"
           }
         />
-      </motion.svg>
+      </svg>
       <span
         style={{
           position: "absolute",
