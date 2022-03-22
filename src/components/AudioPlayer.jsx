@@ -76,17 +76,7 @@ const AudioPlayer = ({ audioUrl, audioDuration }) => {
         setIsPlaying={setIsPlaying}
         skip={skip}
       />
-      <div
-        style={{
-          width: "100%",
-          display: "flex",
-          justifyContent: "space-between",
-          margin: "15px 0 5px 0",
-          color: "white",
-          position: "relative",
-          fontSize: "1.1rem",
-        }}
-      >
+      <div className="audio-player-times">
         <span>{formatTime(progress)}</span>
         <span>{audioDuration}</span>
       </div>

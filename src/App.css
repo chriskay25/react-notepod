@@ -328,6 +328,16 @@ line {
   overflow: visible;
 }
 
+.audio-player-times {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  margin: 10px 0 5px 0;
+  color: white;
+  position: relative;
+  font-size: 1.1rem;
+}
+
 .footer {
   padding: 0 0 1rem 1rem;
   position: absolute;
