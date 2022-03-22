@@ -2,32 +2,28 @@ import React, { useState } from "react";
 import AudioPlayer from "./AudioPlayer";
 import calendar from "../assets/blue-calendar.png";
 import clock from "../assets/blue-clock.png";
-
-const Episode = ({ episode }) => {
+import noteIcon from "../assets/note-icon-gray.png";
+import { episodeDuration, episodeDate } from "../utils/utils";
+const Episode = ({ episode, expandEpisode }) => {
   const [selected, setSelected] = useState(null);
-  const pad2Digits = (digits) => digits.toString().padStart(2, "0"); // Puts 0's before single dgts
-
-  const episodeDuration = (length) => {
-    const minutes = Math.floor(length / 60);
-    const seconds = length % 60;
-    return `${minutes}:${pad2Digits(seconds)}`;
-  };
-
-  const episodeDate = (timestamp) => {
-    let newDate = new Date(timestamp);
-    return newDate.toLocaleDateString();
-  };
 
   return (
     <li
       className={`episode ${selected ? "selected" : ""}`}
-      style={{ maxHeight: selected ? "2000px" : "170px" }}
+      style={{ height: selected ? "100%" : "170px" }}
     >
-      <div style={{ cursor: "pointer" }} onClick={() => setSelected(!selected)}>
-        <h4 style={{ fontSize: "1.4rem", fontWeight: "400" }}>
-          {episode.title}
-        </h4>
-        <div style={{ display: "flex", margin: ".3rem 0 .5rem 0" }}>
+      <button
+        className="expand-contract-bttn"
+        onClick={() => expandEpisode(episode)}
+      >
+        <img src={noteIcon} alt="note-icon" className="note-icon" />
+      </button>
+      <div
+        className={`episode-top ${selected ? "selected" : ""}`}
+        onClick={() => setSelected(!selected)}
+      >
+        <h4 className="episode-title">{episode.title}</h4>
+        <div className="episode-icons-container">
           <img className="episode-icon" src={calendar} alt="calendar" />
           <span>{episodeDate(episode.pub_date_ms)}</span>
           <img className="episode-icon" src={clock} alt="clock" />
@@ -35,7 +31,7 @@ const Episode = ({ episode }) => {
         </div>
         <div
           dangerouslySetInnerHTML={{ __html: episode.description }}
-          className="episode-description"
+          className={`episode-description ${selected ? "selected" : ""}`}
         />
       </div>
       {selected && (

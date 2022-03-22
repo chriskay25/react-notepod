@@ -1,3 +1,5 @@
+import Footer from "./Footer";
+
 const GenreNav = ({ genres, getNewGenre }) => {
   return (
     <nav className="genre-nav">
@@ -10,6 +12,7 @@ const GenreNav = ({ genres, getNewGenre }) => {
             </li>
           ))}
       </ul>
+      <Footer />
     </nav>
   );
 };
