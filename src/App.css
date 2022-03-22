@@ -34,10 +34,15 @@ h6 {
   font-family: var(--primary-font);
 }
 
+button {
+  cursor: pointer;
+}
+
 .App {
   height: 100vh;
   overflow-x: hidden;
-  font-family: Laksaman Bold;
+  font-family: Montserrat;
+  /* font-family: Laksaman Bold; */
   /* font-family: Liberation Sans; */
   /* font-family: Meera; */
 }
@@ -69,9 +74,10 @@ ul {
 }
 
 .genre-nav {
+  position: relative;
   width: 25%;
   max-width: 400px;
-  background: #eeecec;
+  background: var(--gray-background);
   color: var(--gray-text);
   padding: 2rem 1rem 1rem 1rem;
 }
@@ -139,7 +145,7 @@ ul {
 
 .podcast {
   padding: 2rem;
-  width: 98%;
+  width: 100vw;
   max-width: 1100px;
   margin: 0 auto;
 }
@@ -203,6 +209,12 @@ ul {
   cursor: pointer;
 }
 
+.episode-title {
+  font-size: 1.4rem;
+  font-weight: 400;
+  width: 90%;
+}
+
 .episode-description {
   position: relative;
   height: 100%;
@@ -234,25 +246,47 @@ ul {
   width: calc(100%);
 }
 
+.episode-icons-container {
+  display: flex;
+  margin: 0.3rem 0 0.5rem 0;
+  font-style: italic;
+}
+
 .episode-icon {
   height: 1rem;
   margin: 0 0.5rem 0 1rem;
 }
 
-.expanded-episode {
-  width: 100%;
-  height: 100%;
-  background: red;
+.note-icon {
+  width: 30px;
+}
+
+.expand-contract-bttn {
+  width: fit-content;
+  height: auto;
+  border: none;
+  position: absolute;
+  top: 5px;
+  right: 5px;
+}
+
+.episode-expanded {
+  position: relative;
+  margin: 15px 0;
+  padding: 1rem;
+  color: rgb(51, 51, 51);
+  overflow: hidden;
+  transition: 0.05s ease-in-out;
+  background: var(--gray-background);
 }
 
 .audio-player {
   display: flex;
   flex-wrap: wrap;
-  align-items: center;
   border-radius: 14px;
   padding: 25px 10px;
-  border: 3px solid blue;
-  background: black;
+  border: 5px solid rgb(48, 48, 48);
+  background: var(--gray-text);
 }
 
 .audio-player svg {
@@ -296,6 +330,9 @@ line {
 
 .footer {
   padding: 0 0 1rem 1rem;
+  position: absolute;
+  bottom: 0;
+  left: 0;
 }
 
 .menu-hamburger {
@@ -347,5 +384,8 @@ line {
   }
   .home-podcast-list {
     grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  }
+  .note-icon {
+    width: 20px;
   }
 }
