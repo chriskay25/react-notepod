@@ -1,76 +1,30 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import PodcastPreview from "./PodcastPreview";
 import GenreNav from "./GenreNav";
 import Podcast from "./Podcast";
+import { useDispatch, useSelector } from "react-redux";
+import { getPodcasts, getGenres } from "../actions/podcasts";
 
 const Home = () => {
-  const [popularData, setPopularData] = useState(null);
-  const [genres, setGenres] = useState(null);
-  const [genre, setGenre] = useState(null);
-  const [podcast, setPodcast] = useState(null);
-
-  const getPopular = async () => {
-    try {
-      const response = await fetch(
-        "http://localhost:3000/api/v1/search?type=popular"
-      );
-      const data = await response.json();
-      setPopularData(data.podcasts);
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
-  const getGenres = async () => {
-    try {
-      const response = await fetch(
-        "http://localhost:3000/api/v1/search?type=genres"
-      );
-      const data = await response.json();
-      setGenres(data.genres);
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
-  const getNewGenre = async (newGenre) => {
-    setGenre(newGenre);
-    try {
-      const response = await fetch(
-        `http://localhost:3000/api/v1/search?type=popular&genre_id=${newGenre.id}`
-      );
-      const data = await response.json();
-      setPopularData(data.podcasts);
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
-  const getPodcast = async (podcastId) => {
-    try {
-      const response = await fetch(
-        `http://localhost:3000/api/v1/search?type=podcast&podcast_id=${podcastId}`
-      );
-      const data = await response.json();
-      setPodcast(data);
-    } catch (err) {
-      console.log(err);
-    }
-  };
+  const dispatch = useDispatch();
+  const podcasts = useSelector((state) => state.podcasts);
+  const genres = useSelector((state) => state.genres);
+  const podcast = useSelector((state) => state.podcast);
+  const genre = useSelector((state) => state.genre);
 
   useEffect(() => {
-    const populateHome = async () => {
-      await getPopular();
-      await getGenres();
+    const populateHome = () => {
+      dispatch(getPodcasts());
+      dispatch(getGenres());
     };
 
     populateHome();
-  }, []);
+  }, [dispatch]);
 
   return (
     <div className="home">
       {podcast && <Podcast podcast={podcast} />}
-      {!podcast && <GenreNav genres={genres} getNewGenre={getNewGenre} />}
+      {!podcast && <GenreNav genres={genres} />}
       {!podcast && (
         <div className="home-podcast-list-container">
           <h3
@@ -83,14 +37,8 @@ const Home = () => {
             {genre && genre.name}
           </h3>
           <ul className="home-podcast-list">
-            {popularData &&
-              popularData.map((pod) => (
-                <PodcastPreview
-                  key={pod.id}
-                  data={pod}
-                  getPodcast={getPodcast}
-                />
-              ))}
+            {podcasts &&
+              podcasts.map((pod) => <PodcastPreview key={pod.id} data={pod} />)}
           </ul>
         </div>
       )}
