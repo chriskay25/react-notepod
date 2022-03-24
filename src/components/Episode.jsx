@@ -38,6 +38,7 @@ const Episode = ({ episode, expandEpisode }) => {
         <AudioPlayer
           audioUrl={episode.audio}
           audioDuration={episodeDuration(episode.audio_length_sec)}
+          audioLengthSec={episode.audio_length_sec}
         />
       )}
     </li>
