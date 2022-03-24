@@ -1,8 +1,9 @@
 import React, { useState, useEffect, useRef } from "react";
 import AudioControls from "./AudioControls";
+import { episodeDuration } from "../utils/utils";
 import { motion } from "framer-motion";
 
-const AudioPlayer = ({ audioUrl, audioDuration }) => {
+const AudioPlayer = ({ audioUrl, audioDuration, audioLengthSec }) => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [progress, setProgress] = useState(0);
   const audioRef = useRef(new Audio(audioUrl));
@@ -26,37 +27,33 @@ const AudioPlayer = ({ audioUrl, audioDuration }) => {
   };
 
   const onScrubEnd = () => {
-    if (!isPlaying) {
+    if (isPlaying) {
       setIsPlaying(true);
     }
     startTimer();
   };
 
   const skip = (val) => {
-    const t = audioRef.current.currentTime;
+    let currentAudioRef = audioRef.current;
+    const t = currentAudioRef.currentTime;
     clearInterval(intervalRef.current);
-    audioRef.current.currentTime = t + val;
-    setProgress(audioRef.current.currentTime.toFixed(0));
+    currentAudioRef.currentTime = t + val;
+    setProgress(currentAudioRef.currentTime.toFixed(0));
     if (isPlaying) {
       startTimer();
     }
   };
 
-  const formatTime = (t) => {
-    const pad2Digits = (digits) => digits.toString().padStart(2, "0");
-    const minutes = Math.floor(t / 60);
-    const seconds = t % 60;
-    return `${minutes}:${pad2Digits(seconds)}`;
-  };
-
   useEffect(() => {
+    audioRef.current.preload = "metadata";
+    console.log("audioRef: ", audioRef.current.preload);
     let currentAudioRef = audioRef.current;
     if (isPlaying) {
-      audioRef.current.play();
+      currentAudioRef.play();
       startTimer();
     } else {
       clearInterval(intervalRef.current);
-      audioRef.current.pause();
+      currentAudioRef.pause();
     }
 
     return () => {
@@ -77,7 +74,7 @@ const AudioPlayer = ({ audioUrl, audioDuration }) => {
         skip={skip}
       />
       <div className="audio-player-times">
-        <span>{formatTime(progress)}</span>
+        <span>{episodeDuration(progress)}</span>
         <span>{audioDuration}</span>
       </div>
       <input
@@ -90,6 +87,9 @@ const AudioPlayer = ({ audioUrl, audioDuration }) => {
         }
         onChange={(e) => onScrub(e.target.value)}
         onMouseUp={onScrubEnd}
+        style={{
+          backgroundSize: (progress * 100) / audioLengthSec + "% 100%",
+        }}
       />
     </motion.div>
   );
