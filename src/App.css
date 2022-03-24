@@ -45,6 +45,7 @@ button {
   /* font-family: Laksaman Bold; */
   /* font-family: Liberation Sans; */
   /* font-family: Meera; */
+  scroll-behavior: smooth;
 }
 
 .app-header {
@@ -336,6 +337,32 @@ line {
   color: white;
   position: relative;
   font-size: 1.1rem;
+}
+
+input[type="range"] {
+  -webkit-appearance: none;
+  width: 100%;
+  height: 7px;
+  border-radius: 5px;
+  background-image: linear-gradient(#00f7ff, #55838b);
+  background-repeat: no-repeat;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  height: 16px;
+  width: 16px;
+  border-radius: 50%;
+  background-image: radial-gradient(lightblue 60%, white);
+  box-shadow: 0 0 5px 0 rgb(0, 0, 0);
+  transition: 0.3s ease-in-out;
+}
+
+input[type="range"]::-webkit-slider-runnable-track {
+  -webkit-appearance: none;
+  box-shadow: none;
+  border: none;
+  background: transparent;
 }
 
 .footer {
