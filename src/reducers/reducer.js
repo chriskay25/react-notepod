@@ -1,7 +1,12 @@
-export default function reducer(
-  state = { podcast: null, podcasts: [], genres: [], genre: null },
-  action
-) {
+const initialState = {
+  currentUser: null,
+  podcast: null,
+  podcasts: [],
+  genres: [],
+  genre: null,
+};
+
+export default function reducer(state = initialState, action) {
   switch (action.type) {
     case "GET_PODCASTS":
       return {
@@ -28,6 +33,11 @@ export default function reducer(
       return {
         ...state,
         genre: action.payload,
+      };
+    case "LOGIN":
+      return {
+        ...state,
+        currentUser: action.payload,
       };
     default:
       return state;
