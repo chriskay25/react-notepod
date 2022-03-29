@@ -34,7 +34,17 @@ export default function reducer(state = initialState, action) {
         ...state,
         genre: action.payload,
       };
+    case "SIGNUP":
+      return {
+        ...state,
+        currentUser: action.payload,
+      };
     case "LOGIN":
+      return {
+        ...state,
+        currentUser: action.payload,
+      };
+    case "GET_CURRENT_USER":
       return {
         ...state,
         currentUser: action.payload,
