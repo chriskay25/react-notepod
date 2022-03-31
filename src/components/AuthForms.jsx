@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import LoginForm from "./LoginForm";
 import SignupForm from "./SignupForm";
-import userIcon from "../assets/blue-user-icon.png";
+import userIcon from "../assets/user-icon.png";
 
 const AuthForms = () => {
   const [form, setForm] = useState("login");
@@ -13,7 +13,7 @@ const AuthForms = () => {
   return (
     <div className="auth-forms">
       <div className="auth-forms-container">
-        <div style={{ display: "flex", justifyContent: "center" }}>
+        <div className="user-icon-container">
           <img style={{ margin: "20px auto" }} src={userIcon} alt="user-icon" />
         </div>
         {form === "login" && <LoginForm />}
