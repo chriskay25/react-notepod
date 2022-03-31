@@ -26,7 +26,7 @@ const SignupForm = () => {
         <label htmlFor="username">Username: </label>
         <input
           type="text"
-          placeholder="Username"
+          placeholder="Choose username"
           name="username"
           value={username}
           onChange={handleNameChange}
@@ -34,7 +34,7 @@ const SignupForm = () => {
         <label htmlFor="password">Password: </label>
         <input
           type="password"
-          placeholder="Password"
+          placeholder="Choose password"
           name="password"
           value={password}
           onChange={handlePwChange}
