@@ -7,8 +7,7 @@ const JumpButton = ({ direction, skip }) => {
       onClick={() => skip(direction === "back" ? -15 : 15)}
     >
       <svg
-        height="40px"
-        width="40px"
+        viewBox="0 0 40 40"
         stroke="white"
         strokeWidth="3px"
         strokeLinecap={"round"}
@@ -29,7 +28,7 @@ const JumpButton = ({ direction, skip }) => {
           top: "60%",
           left: "50%",
           transform: "translate(-50%, -50%",
-          fontSize: "12px",
+          fontSize: "11px",
           color: "white",
         }}
       >

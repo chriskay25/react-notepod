@@ -75,8 +75,7 @@ const PlayPauseButton = ({ isPlaying, setIsPlaying }) => {
   return (
     <motion.svg
       className="pause-play-button"
-      height="40px"
-      width="32px"
+      viewBox="0 0 32 40"
       variants={svgVariants}
       initial="initial"
       animate={isPlaying ? "pause" : "play"}
