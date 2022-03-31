@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import AudioPlayer from "./AudioPlayer";
-import calendar from "../assets/blue-calendar.png";
-import clock from "../assets/blue-clock.png";
+import EpisodeHeader from "./EpisodeHeader";
+import EpisodeDescription from "./EpisodeDescription";
 import noteIcon from "../assets/note-icon-gray.png";
-import { episodeDuration, episodeDate } from "../utils/utils";
+import { episodeDuration } from "../utils/utils";
 const Episode = ({ episode, expandEpisode }) => {
   const [selected, setSelected] = useState(null);
 
@@ -18,22 +18,16 @@ const Episode = ({ episode, expandEpisode }) => {
       >
         <img src={noteIcon} alt="note-icon" className="note-icon" />
       </button>
-      <div
-        className={`episode-top ${selected ? "selected" : ""}`}
-        onClick={() => setSelected(!selected)}
-      >
-        <h4 className="episode-title">{episode.title}</h4>
-        <div className="episode-icons-container">
-          <img className="episode-icon" src={calendar} alt="calendar" />
-          <span>{episodeDate(episode.pub_date_ms)}</span>
-          <img className="episode-icon" src={clock} alt="clock" />
-          <span>{episodeDuration(episode.audio_length_sec)}</span>
-        </div>
-        <div
-          dangerouslySetInnerHTML={{ __html: episode.description }}
-          className={`episode-description ${selected ? "selected" : ""}`}
-        />
-      </div>
+      <EpisodeHeader
+        episode={episode}
+        selected={selected}
+        setSelected={setSelected}
+      />
+      <EpisodeDescription
+        description={episode.description}
+        selected={selected}
+        setSelected={setSelected}
+      />
       {selected && (
         <AudioPlayer
           audioUrl={episode.audio}
