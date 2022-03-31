@@ -69,6 +69,64 @@ ul {
   list-style: none;
 }
 
+input[type="submit"] {
+  cursor: pointer;
+}
+
+.auth-forms-container {
+  display: flex;
+  width: 550px;
+  padding: 20px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: var(--gray-background);
+  box-shadow: 0px 1px 2px 2px rgba(0, 0, 0, 0.5);
+}
+
+.user-icon-container {
+  margin-right: 40px;
+}
+
+.auth-form {
+  font-size: 1.3rem;
+  text-align: left;
+  height: 210px;
+  color: var(--gray-text);
+}
+
+.auth-form input {
+  font-size: 1.1rem;
+}
+
+.auth-form h2 {
+  margin-bottom: 5px;
+}
+
+.auth-form input {
+  width: 100%;
+  padding: 5px;
+  margin: 5px auto;
+  border: none;
+}
+
+.auth-form input[type="submit"] {
+  margin: 25px 0;
+  background: #aaaaaa;
+  color: white;
+  width: 50%;
+  font-weight: 800;
+}
+
+.form-switch-bttn {
+  color: #205e91;
+  border: none;
+  position: absolute;
+  right: 20px;
+  bottom: 20px;
+}
+
 .home {
   display: flex;
   height: fit-content;
@@ -206,7 +264,7 @@ ul {
   transition: 0.3s ease-in-out;
 }
 
-.episode-top {
+.episode-header {
   cursor: pointer;
 }
 
@@ -219,6 +277,7 @@ ul {
 .episode-description {
   position: relative;
   height: 100%;
+  cursor: pointer;
 }
 
 .episode-description::after {
@@ -291,7 +350,9 @@ ul {
 }
 
 .audio-player svg {
+  height: 40px;
   cursor: pointer;
+  overflow: visible;
 }
 
 line {
@@ -306,6 +367,10 @@ line {
 
 .audio-controls {
   display: flex;
+  justify-content: space-between;
+  margin: 0 auto;
+  width: 50%;
+  max-width: 225px;
 }
 
 .pause-play-button {
@@ -315,18 +380,6 @@ line {
 .jump-button {
   position: relative;
   cursor: pointer;
-}
-
-.jump-button.back {
-  margin: 0 50px;
-}
-
-.jump-button.forward {
-  margin: 0 45px;
-}
-
-.jump-button svg {
-  overflow: visible;
 }
 
 .audio-player-times {
@@ -406,6 +459,18 @@ input[type="range"]::-webkit-slider-runnable-track {
   .podcast-title-grid {
     grid-template-areas: "image" "title" "description";
     row-gap: 8px;
+  }
+  .auth-forms-container {
+    display: block;
+    width: 350px;
+  }
+  .user-icon-container {
+    margin: 0;
+    display: flex;
+    justify-content: center;
+  }
+  .audio-player svg {
+    height: 28px;
   }
 }
 
