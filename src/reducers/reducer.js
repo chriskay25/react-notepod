@@ -4,6 +4,7 @@ const initialState = {
   podcasts: [],
   genres: [],
   genre: null,
+  menuIsOpen: false,
 };
 
 export default function reducer(state = initialState, action) {
@@ -48,6 +49,11 @@ export default function reducer(state = initialState, action) {
       return {
         ...state,
         currentUser: action.payload,
+      };
+    case "MENU_TOGGLE":
+      return {
+        ...state,
+        menuIsOpen: action.payload,
       };
     default:
       return state;
