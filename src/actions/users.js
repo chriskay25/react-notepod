@@ -60,3 +60,13 @@ export const getCurrentUser = () => async (dispatch) => {
     }
   }
 };
+
+export const logout = () => {
+  localStorage.clear();
+  return (dispatch) => {
+    dispatch({
+      type: "LOGOUT",
+      payload: null,
+    });
+  };
+};
