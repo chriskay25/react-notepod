@@ -1,7 +1,9 @@
 import React, { useEffect } from "react";
-import GenreNav from "./GenreNav";
+import NavContainer from "./NavContainer";
 import Podcast from "./Podcast";
 import PodcastsTileView from "./PodcastsTileView";
+import Footer from "./Footer";
+
 import { useDispatch, useSelector } from "react-redux";
 import { getPodcasts, getGenres } from "../actions/podcasts";
 
@@ -24,8 +26,9 @@ const Home = () => {
   return (
     <div className="home">
       {podcast && <Podcast podcast={podcast} />}
-      <GenreNav genres={genres} />
+      <NavContainer genres={genres} />
       {!podcast && <PodcastsTileView podcasts={podcasts} genre={genre} />}
+      <Footer />
     </div>
   );
 };
