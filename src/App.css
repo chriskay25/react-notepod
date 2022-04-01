@@ -42,9 +42,6 @@ button {
   height: 100vh;
   overflow-x: hidden;
   font-family: Montserrat;
-  /* font-family: Laksaman Bold; */
-  /* font-family: Liberation Sans; */
-  /* font-family: Meera; */
   scroll-behavior: smooth;
 }
 
@@ -52,6 +49,7 @@ button {
   width: 100%;
   position: sticky;
   top: 0;
+  left: 0;
   z-index: 2;
 }
 
@@ -130,27 +128,45 @@ input[type="submit"] {
 .home {
   display: flex;
   height: fit-content;
+  position: relative;
 }
 
-.genre-nav {
-  position: relative;
-  width: 25%;
-  max-width: 400px;
+.nav-container {
+  position: fixed;
+  top: calc(28px + 2vmin);
+  left: 0;
+  width: 100%;
+  height: calc(100% - (28px + 2vmin));
+  max-width: 300px;
   background: var(--gray-background);
   color: var(--gray-text);
   padding: 2rem 1rem 1rem 1rem;
+  overflow-y: auto;
+  z-index: 1;
+  transition: 0.5s ease;
+}
+.nav-container.closed {
+  left: -100%;
+}
+.nav-container.open {
+  left: 0;
 }
 
-.genre-nav h2 {
+.nav-section {
+  padding-bottom: 30px;
+  border-bottom: 1px solid var(--gray-text);
+}
+
+.nav-container h2 {
   font-weight: 400;
   font-size: 2.2rem;
 }
 
-.genre-list {
+.nav-list {
   margin-top: 1rem;
 }
 
-.genre-list li {
+.nav-list li {
   cursor: pointer;
   margin-bottom: 0.5rem;
   font-size: 1.3rem;
@@ -159,18 +175,13 @@ input[type="submit"] {
   transition: 0.2s;
 }
 
-.genre-list li:hover {
+.nav-list li:hover {
   transform: scale(1.1);
   transform-origin: 0;
   color: #000;
 }
 
-.home-podcast-list-container {
-  width: 75%;
-  height: 100%;
-}
-
-.home-podcast-list {
+.podcast-preview-tiles {
   margin-top: 1rem;
   margin-bottom: 1rem;
   width: 100%;
@@ -331,11 +342,13 @@ input[type="submit"] {
 }
 
 .episode-expanded {
+  height: 100%;
+  width: 100%;
   position: relative;
   margin: 15px 0;
   padding: 1rem;
   color: rgb(51, 51, 51);
-  overflow: hidden;
+  z-index: 1;
   transition: 0.05s ease-in-out;
   background: var(--gray-background);
 }
@@ -421,7 +434,7 @@ input[type="range"]::-webkit-slider-runnable-track {
 .footer {
   padding: 0 0 1rem 1rem;
   position: absolute;
-  bottom: 0;
+  bottom: -20px;
   left: 0;
 }
 
@@ -478,13 +491,7 @@ input[type="range"]::-webkit-slider-runnable-track {
   html {
     font-size: 12px;
   }
-  .genre-nav {
-    display: none;
-  }
-  .home-podcast-list-container {
-    width: 100%;
-  }
-  .home-podcast-list {
+  .podcast-preview-tiles {
     grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
   }
   .note-icon {
