@@ -3,7 +3,7 @@ import { menuToggle } from "../actions/menu";
 
 const Hamburger = () => {
   const dispatch = useDispatch();
-  const menuIsOpen = useSelector((state) => state.menuIsOpen);
+  const menuIsOpen = useSelector((state) => state.menuReducer.menuIsOpen);
 
   const toggleMenu = (bool) => {
     dispatch(menuToggle(bool));

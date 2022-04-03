@@ -6,7 +6,7 @@ import { menuToggle } from "../actions/menu";
 
 const NavContainer = ({ genres }) => {
   const dispatch = useDispatch();
-  const menuIsOpen = useSelector((state) => state.menuIsOpen);
+  const menuIsOpen = useSelector((state) => state.menuReducer.menuIsOpen);
 
   useEffect(() => {
     // Close menu on logout

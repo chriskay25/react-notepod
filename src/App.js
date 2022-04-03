@@ -8,7 +8,7 @@ import { getCurrentUser } from "./actions/users";
 
 const App = () => {
   const dispatch = useDispatch();
-  const currentUser = useSelector((state) => state.currentUser);
+  const currentUser = useSelector((state) => state.userReducer.currentUser);
 
   useEffect(() => {
     let token = localStorage.getItem("token");
