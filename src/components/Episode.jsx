@@ -1,41 +1,29 @@
-import React, { useState } from "react";
-import AudioPlayer from "./AudioPlayer";
+import { useDispatch } from "react-redux";
+import { episodeDuration } from "../utils/utils";
 import EpisodeHeader from "./EpisodeHeader";
 import EpisodeDescription from "./EpisodeDescription";
-import noteIcon from "../assets/note-icon-gray.png";
-import { episodeDuration } from "../utils/utils";
-const Episode = ({ episode, expandEpisode }) => {
-  const [selected, setSelected] = useState(null);
+import AudioPlayer from "./AudioPlayer";
+import { selectEpisode } from "../actions/episodes";
+import close from "../assets/close-icon.png";
+const Episode = ({ episode }) => {
+  const dispatch = useDispatch();
 
   return (
-    <li
-      className={`episode ${selected ? "selected" : ""}`}
-      style={{ height: selected ? "100%" : "170px" }}
-    >
+    <div className="episode">
       <button
         className="expand-contract-bttn"
-        onClick={() => expandEpisode(episode)}
+        onClick={() => dispatch(selectEpisode(null))}
       >
-        <img src={noteIcon} alt="note-icon" className="note-icon" />
+        <img src={close} alt="close-icon" className="note-icon" />
       </button>
-      <EpisodeHeader
-        episode={episode}
-        selected={selected}
-        setSelected={setSelected}
+      <EpisodeHeader episode={episode} />
+      <EpisodeDescription description={episode.description} />
+      <AudioPlayer
+        audioUrl={episode.audio}
+        audioDuration={episodeDuration(episode.audio_length_sec)}
+        audioLengthSec={episode.audio_length_sec}
       />
-      <EpisodeDescription
-        description={episode.description}
-        selected={selected}
-        setSelected={setSelected}
-      />
-      {selected && (
-        <AudioPlayer
-          audioUrl={episode.audio}
-          audioDuration={episodeDuration(episode.audio_length_sec)}
-          audioLengthSec={episode.audio_length_sec}
-        />
-      )}
-    </li>
+    </div>
   );
 };
 
