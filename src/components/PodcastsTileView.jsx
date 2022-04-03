@@ -21,7 +21,7 @@ const PodcastsTileView = ({ podcasts, genre }) => {
           {genre.name}
         </h3>
       )}
-      <ul className="home-podcast-list">
+      <ul className="podcast-preview-tiles">
         {podcasts &&
           podcasts.map((pod) => <PodcastPreview key={pod.id} data={pod} />)}
       </ul>
