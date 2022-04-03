@@ -1,9 +1,20 @@
-const EpisodeDescription = ({ description, selected, setSelected }) => {
+const EpisodeDescription = ({
+  description,
+  expanded,
+  setExpanded,
+  preview,
+}) => {
+  const handleClick = () => {
+    if (preview) setExpanded(!expanded);
+  };
+
   return (
     <div
       dangerouslySetInnerHTML={{ __html: description }}
-      className={`episode-description ${selected ? "selected" : ""}`}
-      onClick={() => setSelected(!selected)}
+      className={`episode-description ${preview ? "preview" : ""} ${
+        expanded ? "expanded" : ""
+      }`}
+      onClick={() => handleClick()}
     />
   );
 };
