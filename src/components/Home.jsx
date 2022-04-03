@@ -1,18 +1,19 @@
 import React, { useEffect } from "react";
 import NavContainer from "./NavContainer";
-import Podcast from "./Podcast";
 import PodcastsTileView from "./PodcastsTileView";
-import Footer from "./Footer";
-
+import Podcast from "./Podcast";
+import Episode from "./Episode";
 import { useDispatch, useSelector } from "react-redux";
-import { getPodcasts, getGenres } from "../actions/podcasts";
+import { getPodcasts } from "../actions/podcasts";
+import { getGenres } from "../actions/genres";
 
 const Home = () => {
   const dispatch = useDispatch();
-  const podcasts = useSelector((state) => state.podcasts);
-  const genres = useSelector((state) => state.genres);
-  const podcast = useSelector((state) => state.podcast);
-  const genre = useSelector((state) => state.genre);
+  const podcasts = useSelector((state) => state.podcastReducer.podcasts);
+  const podcast = useSelector((state) => state.podcastReducer.podcast);
+  const episode = useSelector((state) => state.episodeReducer.episode);
+  const genres = useSelector((state) => state.genreReducer.genres);
+  const genre = useSelector((state) => state.genreReducer.genre);
 
   useEffect(() => {
     const populateHome = () => {
@@ -25,10 +26,10 @@ const Home = () => {
 
   return (
     <div className="home">
-      {podcast && <Podcast podcast={podcast} />}
       <NavContainer genres={genres} />
+      {podcast && !episode && <Podcast podcast={podcast} />}
+      {podcast && episode && <Episode episode={episode} />}
       {!podcast && <PodcastsTileView podcasts={podcasts} genre={genre} />}
-      <Footer />
     </div>
   );
 };
