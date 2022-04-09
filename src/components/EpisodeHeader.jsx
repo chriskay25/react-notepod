@@ -2,7 +2,13 @@ import { episodeDuration, episodeDate } from "../utils/utils";
 import calendar from "../assets/blue-calendar.png";
 import clock from "../assets/blue-clock.png";
 
-const EpisodeHeader = ({ episode, expanded, setExpanded, preview }) => {
+const EpisodeHeader = ({
+  episode,
+  expanded,
+  setExpanded,
+  preview,
+  noteMode,
+}) => {
   const handleClick = () => {
     if (preview) setExpanded(!expanded);
   };
@@ -10,7 +16,7 @@ const EpisodeHeader = ({ episode, expanded, setExpanded, preview }) => {
     <header
       className={`episode-header ${preview ? "preview" : ""} ${
         expanded ? "expanded" : ""
-      }`}
+      } ${noteMode ? "note-mode" : ""}`}
       onClick={() => handleClick()}
     >
       <h4 className="episode-title">{episode.title}</h4>
