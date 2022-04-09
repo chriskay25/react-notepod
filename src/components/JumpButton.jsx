@@ -8,7 +8,6 @@ const JumpButton = ({ direction, skip }) => {
     >
       <svg
         viewBox="0 0 40 40"
-        stroke="white"
         strokeWidth="3px"
         strokeLinecap={"round"}
         fill="transparent"
@@ -29,7 +28,7 @@ const JumpButton = ({ direction, skip }) => {
           left: "50%",
           transform: "translate(-50%, -50%",
           fontSize: "11px",
-          color: "white",
+          color: "var(--gray-background)",
         }}
       >
         15s
