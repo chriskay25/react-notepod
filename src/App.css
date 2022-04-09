@@ -23,6 +23,7 @@ body {
   --text-font: "Righteous";
   --gray-text: #505050;
   --gray-background: #eeecec;
+  --orange: #f7bb4d;
 }
 
 h1,
@@ -40,7 +41,8 @@ button {
 
 .App {
   height: 100vh;
-  overflow-x: hidden;
+  max-height: 100vh;
+  overflow: hidden;
   font-family: Montserrat;
   scroll-behavior: smooth;
 }
@@ -50,7 +52,7 @@ button {
   position: sticky;
   top: 0;
   left: 0;
-  z-index: 2;
+  z-index: 4;
 }
 
 .app-title {
@@ -65,6 +67,11 @@ button {
 
 ul {
   list-style: none;
+}
+
+input {
+  border: none;
+  border-radius: 5px;
 }
 
 input[type="submit"] {
@@ -94,10 +101,6 @@ input[type="submit"] {
   color: var(--gray-text);
 }
 
-.auth-form input {
-  font-size: 1.1rem;
-}
-
 .auth-form h2 {
   margin-bottom: 5px;
 }
@@ -106,7 +109,14 @@ input[type="submit"] {
   width: 100%;
   padding: 5px;
   margin: 5px auto;
-  border: none;
+  font-size: 1.1rem;
+  outline: none;
+  border: 2px solid var(--gray-background);
+  background: white;
+  transition: 0.5s ease-in-out;
+}
+.auth-form input:focus {
+  border: 2px solid var(--gray-text);
 }
 
 .auth-form input[type="submit"] {
@@ -126,9 +136,10 @@ input[type="submit"] {
 }
 
 .home {
-  display: flex;
-  height: fit-content;
   position: relative;
+  display: flex;
+  height: 100vh;
+  overflow-y: scroll;
 }
 
 .nav-container {
@@ -142,7 +153,7 @@ input[type="submit"] {
   color: var(--gray-text);
   padding: 2rem 1rem 1rem 1rem;
   overflow-y: auto;
-  z-index: 1;
+  z-index: 3;
   transition: 0.5s ease;
 }
 .nav-container.closed {
@@ -184,12 +195,23 @@ input[type="submit"] {
 .podcast-preview-tiles {
   margin-top: 1rem;
   margin-bottom: 1rem;
+  padding-bottom: 4rem;
   width: 100%;
-  height: 100%;
   display: grid;
   justify-content: center;
+  align-items: center;
   grid-template-columns: repeat(auto-fit, minmax(200px, 300px));
-  grid-gap: 1rem;
+  overflow-y: auto;
+  animation: repel 1.5s ease 1s forwards;
+}
+
+@keyframes repel {
+  from {
+    grid-gap: 0px;
+  }
+  to {
+    grid-gap: 10px;
+  }
 }
 
 .podcast-preview {
@@ -214,10 +236,12 @@ input[type="submit"] {
 }
 
 .podcast {
+  height: calc(100% - 48px + 2vmin);
   padding: 2rem;
   width: 100vw;
   max-width: 1100px;
   margin: 0 auto;
+  overflow-y: auto;
 }
 
 .podcast-title-grid {
@@ -255,6 +279,7 @@ input[type="submit"] {
   position: relative;
   margin: 15px 0;
   padding: 1rem;
+  border-radius: 5px;
   background: #eeecec;
   color: rgb(51, 51, 51);
   overflow: hidden;
@@ -280,10 +305,16 @@ input[type="submit"] {
   cursor: pointer;
 }
 
+.episode-header.note-mode {
+  max-height: 80px;
+  border-bottom: 2px solid rgba(57, 58, 46, 0.397);
+}
+
 .episode-title {
   font-size: 1.4rem;
   font-weight: 400;
   width: 90%;
+  grid-area: episode-title;
 }
 
 .episode-description {
@@ -317,6 +348,11 @@ input[type="submit"] {
   width: calc(100%);
 }
 
+.episode-description.note-mode {
+  overflow-y: auto;
+  font-weight: 300;
+}
+
 .episode-icons-container {
   display: flex;
   margin: 0.3rem 0 0.5rem 0;
@@ -337,35 +373,66 @@ input[type="submit"] {
   height: auto;
   border: none;
   position: absolute;
-  top: 5px;
-  right: 5px;
+  top: 10px;
+  right: 10px;
 }
 
-.episode-expanded {
-  height: 100%;
-  width: 100%;
+.episode {
   position: relative;
-  margin: 0 auto;
-  padding: 1rem;
+  display: grid;
+  grid-template-areas:
+    "episode-title"
+    "episode-center"
+    "episode-center"
+    "episode-center"
+    "episode-center"
+    "episode-center"
+    "episode-center"
+    "episode-center"
+    "episode-center"
+    "player";
+  height: calc(100vh - (78px + 2vmin));
+  width: calc(100% - 40px);
+  max-width: 1200px;
+  margin: 20px auto;
+  padding: 10px 10px 0 10px;
+  border-radius: 5px;
   color: rgb(51, 51, 51);
-  z-index: 1;
-  transition: 0.05s ease-in-out;
   background: var(--gray-background);
+  box-shadow: 0 0 2px 1px rgba(0, 0, 0, 0.308);
+  overflow: hidden;
+  transition: 0.25s ease-in-out;
+}
+
+.episode-center {
+  width: 200%;
+  display: grid;
+  grid-template-columns: auto auto;
+  column-gap: 5px;
+  overflow: hidden;
+  grid-area: episode-center;
 }
 
 .audio-player {
+  position: relative;
+  width: 100%;
+  max-height: 130px;
   display: flex;
   flex-wrap: wrap;
-  border-radius: 14px;
+  margin: 0 auto;
   padding: 25px 10px;
-  border: 5px solid rgb(48, 48, 48);
-  background: var(--gray-text);
+  border-radius: 10px;
+  border: 3px solid var(--gray-text);
+  background: rgb(48, 46, 46);
+  z-index: 2;
+  grid-area: player;
 }
 
 .audio-player svg {
   height: 40px;
   cursor: pointer;
   overflow: visible;
+  stroke: var(--gray-background);
 }
 
 line {
@@ -386,8 +453,12 @@ line {
   max-width: 225px;
 }
 
-.pause-play-button {
+.play-pause-button {
   overflow: visible;
+}
+.play-pause-button line {
+  stroke: white;
+  stroke-width: 5px;
 }
 
 .jump-button {
@@ -400,7 +471,7 @@ line {
   display: flex;
   justify-content: space-between;
   margin: 10px 0 5px 0;
-  color: white;
+  color: var(--gray-background);
   position: relative;
   font-size: 1.1rem;
 }
@@ -432,10 +503,10 @@ input[type="range"]::-webkit-slider-runnable-track {
 }
 
 .footer {
-  padding: 0 0 1rem 1rem;
+  padding: 0 0.5rem 0 0.5rem;
   position: absolute;
-  bottom: -20px;
-  left: 0;
+  bottom: 0;
+  right: 0;
 }
 
 .menu-hamburger {
