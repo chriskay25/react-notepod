@@ -1,18 +1,16 @@
 import { useState } from "react";
-import { useDispatch } from "react-redux";
-import { createNote } from "../actions/notes";
 
-const NoteForm = () => {
-  const [note, setNote] = useState("");
-  const dispatch = useDispatch();
+const NoteForm = ({ newNote }) => {
+  const [content, setContent] = useState("");
 
   const handleChange = (e) => {
-    setNote(e.target.value);
+    setContent(e.target.value);
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(createNote(note));
+    newNote(content);
+    setContent("");
   };
   return (
     <form onSubmit={handleSubmit}>
@@ -24,6 +22,7 @@ const NoteForm = () => {
           padding: "10px",
           borderRadius: "5px",
         }}
+        value={content}
         onChange={handleChange}
       />
       <input type="submit" value="Add Note" />

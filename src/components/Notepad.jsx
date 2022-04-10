@@ -1,4 +1,6 @@
-const Notepad = () => {
+import NoteForm from "./NoteForm";
+
+const Notepad = ({ newNote }) => {
   return (
     <div className="notepad">
       <h2
@@ -24,8 +26,9 @@ const Notepad = () => {
           <line x1={0} y1={8} x2={16} y2={8} />
         </svg>
       </button>
-      <div layout style={{ padding: "1rem 0" }}>
-        <ul layout></ul>
+      <NoteForm newNote={newNote} />
+      <div style={{ padding: "1rem 0" }}>
+        <ul></ul>
       </div>
     </div>
   );

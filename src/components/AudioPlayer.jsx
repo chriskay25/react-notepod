@@ -2,12 +2,16 @@ import React, { useState, useEffect, useRef } from "react";
 import AudioControls from "./AudioControls";
 import { episodeDuration } from "../utils/utils";
 import { motion } from "framer-motion";
-
-const AudioPlayer = ({ audioUrl, audioDuration, audioLengthSec }) => {
+const AudioPlayer = ({ audioUrl, audioDuration, audioLengthSec, timeRef }) => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [progress, setProgress] = useState(0);
   const audioRef = useRef(new Audio(audioUrl));
   const intervalRef = useRef();
+
+  const setTrackProgress = (t) => {
+    timeRef.current = t;
+    setProgress(t.toFixed(0));
+  };
 
   const startTimer = () => {
     clearInterval(intervalRef.current);
@@ -15,7 +19,7 @@ const AudioPlayer = ({ audioUrl, audioDuration, audioLengthSec }) => {
       if (audioRef.current.ended) {
         setProgress(0);
       } else {
-        setProgress(audioRef.current.currentTime.toFixed(0));
+        setTrackProgress(audioRef.current.currentTime);
       }
     }, [1000]);
   };
@@ -23,7 +27,7 @@ const AudioPlayer = ({ audioUrl, audioDuration, audioLengthSec }) => {
   const onScrub = (val) => {
     clearInterval(intervalRef.current);
     audioRef.current.currentTime = val;
-    setProgress(audioRef.current.currentTime);
+    setTrackProgress(audioRef.current.currentTime);
   };
 
   const onScrubEnd = () => {
@@ -38,7 +42,7 @@ const AudioPlayer = ({ audioUrl, audioDuration, audioLengthSec }) => {
     const t = currentAudioRef.currentTime;
     clearInterval(intervalRef.current);
     currentAudioRef.currentTime = t + val;
-    setProgress(currentAudioRef.currentTime.toFixed(0));
+    setTrackProgress(currentAudioRef.currentTime);
     if (isPlaying) {
       startTimer();
     }
@@ -46,7 +50,6 @@ const AudioPlayer = ({ audioUrl, audioDuration, audioLengthSec }) => {
 
   useEffect(() => {
     audioRef.current.preload = "metadata";
-    console.log("audioRef: ", audioRef.current.preload);
     let currentAudioRef = audioRef.current;
     if (isPlaying) {
       currentAudioRef.play();
@@ -64,6 +67,7 @@ const AudioPlayer = ({ audioUrl, audioDuration, audioLengthSec }) => {
 
   return (
     <motion.div
+      layout
       className="audio-player"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}

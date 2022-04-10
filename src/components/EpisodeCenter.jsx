@@ -85,7 +85,7 @@ const EpisodeCenter = React.forwardRef((props, ref) => {
             overflow: "hidden",
           }}
         >
-          <Notepad />
+          <Notepad newNote={props.newNote} />
         </div>
       </div>
     </motion.div>
