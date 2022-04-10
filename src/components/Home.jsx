@@ -6,6 +6,7 @@ import Episode from "./Episode";
 import { useDispatch, useSelector } from "react-redux";
 import { getPodcasts } from "../actions/podcasts";
 import { getGenres } from "../actions/genres";
+import { getNotes } from "../actions/notes";
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -19,6 +20,7 @@ const Home = () => {
     const populateHome = () => {
       dispatch(getPodcasts());
       dispatch(getGenres());
+      dispatch(getNotes());
     };
 
     populateHome();
