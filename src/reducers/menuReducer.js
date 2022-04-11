@@ -5,6 +5,11 @@ export const menuReducer = (state = { menuIsOpen: false }, action) => {
         ...state,
         menuIsOpen: action.payload,
       };
+    case "HOME_CLICK":
+      return {
+        ...state,
+        menuIsOpen: false,
+      };
     case "LOGOUT":
       return {
         ...state,

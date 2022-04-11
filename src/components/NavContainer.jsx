@@ -8,6 +8,8 @@ const NavContainer = ({ genres }) => {
   const dispatch = useDispatch();
   const menuIsOpen = useSelector((state) => state.menuReducer.menuIsOpen);
 
+  const handleHomeClick = () => dispatch({ type: "HOME_CLICK", payload: null });
+
   useEffect(() => {
     // Close menu on logout
     return () => {
@@ -20,6 +22,7 @@ const NavContainer = ({ genres }) => {
       <div className="nav-section">
         <h2>PROFILE</h2>
         <ul className="nav-list">
+          <li onClick={() => handleHomeClick()}>Home</li>
           <li>Favorite Podcasts</li>
           <li>Favorite Episodes</li>
           <li>Notes</li>

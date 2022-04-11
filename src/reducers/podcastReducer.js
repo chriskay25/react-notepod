@@ -19,6 +19,11 @@ export const podcastReducer = (
         ...state,
         podcast: action.payload,
       };
+    case "HOME_CLICK":
+      return {
+        ...state,
+        podcast: action.payload,
+      };
     case "LOGOUT":
       return {
         ...state,
