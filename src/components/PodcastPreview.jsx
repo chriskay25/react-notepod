@@ -7,7 +7,15 @@ const PodcastPreview = ({ data }) => {
   const dispatch = useDispatch();
 
   return (
-    <motion.li className="podcast-preview">
+    <motion.li
+      className="podcast-preview"
+      initial={{ opacity: 0, scale: 0.3 }}
+      animate={{
+        opacity: 1,
+        scale: 1,
+        transition: { delay: 0.3, type: "spring", damping: 30 },
+      }}
+    >
       <div
         className="podcast-preview-image"
         onClick={() => dispatch(getPodcast(data.id))}
