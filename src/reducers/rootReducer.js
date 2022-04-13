@@ -4,7 +4,8 @@ import { podcastReducer } from "./podcastReducer";
 import { genreReducer } from "./genreReducer";
 import { episodeReducer } from "./episodeReducer";
 import { noteReducer } from "./noteReducer";
-import { menuReducer } from "./menuReducer";
+import { uiReducer } from "./uiReducer";
+import { dataReducer } from "./dataReducer";
 
 export default combineReducers({
   userReducer,
@@ -12,5 +13,6 @@ export default combineReducers({
   genreReducer,
   episodeReducer,
   noteReducer,
-  menuReducer,
+  uiReducer,
+  dataReducer,
 });
