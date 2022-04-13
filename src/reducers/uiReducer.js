@@ -1,4 +1,4 @@
-export const menuReducer = (state = { menuIsOpen: false }, action) => {
+export const uiReducer = (state = { menuIsOpen: false }, action) => {
   switch (action.type) {
     case "MENU_TOGGLE":
       return {
