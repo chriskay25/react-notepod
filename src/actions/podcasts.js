@@ -1,3 +1,5 @@
+import { getData, getDataSuccess, getDataFailure } from "./data";
+
 export const getPodcasts = () => async (dispatch) => {
   // If podcasts in local storage, set state from there instead of making API req
   let state = localStorage.getItem("state");
@@ -9,12 +11,15 @@ export const getPodcasts = () => async (dispatch) => {
     });
   } else {
     try {
+      dispatch(getData());
       const response = await fetch(
         "http://localhost:3000/api/v1/search?type=popular"
       );
       const data = await response.json();
       dispatch({ type: "GET_PODCASTS", payload: data.podcasts });
+      dispatch(getDataSuccess());
     } catch (err) {
+      dispatch(getDataFailure());
       console.log(err);
     }
   }
@@ -22,18 +27,22 @@ export const getPodcasts = () => async (dispatch) => {
 
 export const getPodcast = (podcastId) => async (dispatch) => {
   try {
+    dispatch(getData());
     const response = await fetch(
       `http://localhost:3000/api/v1/search?type=podcast&podcast_id=${podcastId}`
     );
     const data = await response.json();
     dispatch({ type: "GET_PODCAST", payload: data });
+    dispatch(getDataSuccess());
   } catch (err) {
+    dispatch(getDataFailure());
     console.log(err);
   }
 };
 
 export const getPodcastsByGenre = (genre) => async (dispatch) => {
   try {
+    dispatch(getData());
     const response = await fetch(
       `http://localhost:3000/api/v1/search?type=popular&genre_id=${genre.id}`
     );
@@ -42,7 +51,9 @@ export const getPodcastsByGenre = (genre) => async (dispatch) => {
       type: "GET_PODCASTS_BY_GENRE",
       payload: { podcasts: data.podcasts, genre: genre },
     });
+    dispatch(getDataSuccess());
   } catch (err) {
+    dispatch(getDataFailure());
     console.log(err);
   }
 };
