@@ -1,9 +1,9 @@
 import { useDispatch, useSelector } from "react-redux";
-import { menuToggle } from "../actions/menu";
+import { menuToggle } from "../actions/ui";
 
 const Hamburger = () => {
   const dispatch = useDispatch();
-  const menuIsOpen = useSelector((state) => state.menuReducer.menuIsOpen);
+  const menuIsOpen = useSelector((state) => state.uiReducer.menuIsOpen);
 
   const toggleMenu = (bool) => {
     dispatch(menuToggle(bool));

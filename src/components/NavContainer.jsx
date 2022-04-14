@@ -2,11 +2,11 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getPodcastsByGenre } from "../actions/podcasts";
 import { logout } from "../actions/users";
-import { menuToggle } from "../actions/menu";
+import { menuToggle } from "../actions/ui";
 
 const NavContainer = ({ genres }) => {
   const dispatch = useDispatch();
-  const menuIsOpen = useSelector((state) => state.menuReducer.menuIsOpen);
+  const menuIsOpen = useSelector((state) => state.uiReducer.menuIsOpen);
 
   const handleHomeClick = () => dispatch({ type: "HOME_CLICK", payload: null });
 
