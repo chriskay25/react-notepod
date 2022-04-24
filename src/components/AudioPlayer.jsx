@@ -2,7 +2,13 @@ import React, { useState, useEffect, useRef } from "react";
 import AudioControls from "./AudioControls";
 import { episodeDuration } from "../utils/utils";
 import { motion } from "framer-motion";
-const AudioPlayer = ({ audioUrl, audioDuration, audioLengthSec, timeRef }) => {
+const AudioPlayer = ({
+  audioUrl,
+  audioDuration,
+  audioLengthSec,
+  timeRef,
+  noteMode,
+}) => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [progress, setProgress] = useState(0);
   const audioRef = useRef(new Audio(audioUrl));
@@ -68,7 +74,7 @@ const AudioPlayer = ({ audioUrl, audioDuration, audioLengthSec, timeRef }) => {
   return (
     <motion.div
       layout
-      className="audio-player"
+      className={`audio-player ${noteMode ? "note-mode" : ""}`}
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
     >
