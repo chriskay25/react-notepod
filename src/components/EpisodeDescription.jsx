@@ -13,11 +13,6 @@ const EpisodeDescription = ({
 
   return (
     <div style={{ height: "100%", overflow: "hidden" }}>
-      {noteMode && (
-        <h3 style={{ fontWeight: 500, borderBottom: "2px solid white" }}>
-          Description{" "}
-        </h3>
-      )}
       <motion.div
         dangerouslySetInnerHTML={{ __html: description }}
         className={`episode-description ${preview ? "preview" : ""} ${
