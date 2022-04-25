@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import swapIcon from "../assets/swap-icon-4.png";
+import swapIcon from "../assets/swap-icon.png";
 
 const EpisodeCenterHeader = ({
   element,
