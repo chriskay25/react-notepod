@@ -1,35 +1,51 @@
+import { useSelector } from "react-redux";
 import NoteForm from "./NoteForm";
+import Note from "./Note";
+import { motion, AnimatePresence } from "framer-motion";
 
-const Notepad = ({ newNote }) => {
+const Notepad = ({ newNote, showForm, setShowForm }) => {
+  const episode = useSelector((state) => state.episodeReducer.episode);
+  const notes = useSelector((state) => state.noteReducer.notes);
+
   return (
     <div className="notepad">
-      <h2
-        style={{
-          color: "linen",
-          fontWeight: 500,
-          borderBottom: "2px solid linen",
-        }}
-      >
-        NOTEPAD
-      </h2>
-      <button
-        style={{
-          height: "40px",
-          width: "40px",
-          background: "transparent",
-          border: "none",
-          padding: "5px",
-        }}
-      >
-        <svg viewBox="-2 -2 20 20" stroke="var(--orange)" strokeWidth="2px">
-          <line x1={8} y1={0} x2={8} y2={16} />
-          <line x1={0} y1={8} x2={16} y2={8} />
-        </svg>
-      </button>
-      <NoteForm newNote={newNote} />
-      <div style={{ padding: "1rem 0" }}>
-        <ul></ul>
-      </div>
+      <AnimatePresence exitBeforeEnter>
+        {showForm ? (
+          <NoteForm
+            key={1}
+            newNote={newNote}
+            showForm={showForm}
+            setShowForm={setShowForm}
+          />
+        ) : (
+          <motion.ul
+            key={2}
+            initial={{
+              opacity: 0,
+              height: "100%",
+              scale: 0.2,
+              y: "-75px",
+              borderRadius: "5px",
+              padding: "10px",
+              background: "var(--gray-text)",
+              color: "white",
+              overflowY: "auto",
+            }}
+            animate={{
+              opacity: 1,
+              scale: 1,
+              height: "100%",
+              y: 0,
+            }}
+            exit={{ opacity: 0, scale: 0, y: "75px" }}
+          >
+            {notes &&
+              notes
+                .filter((note) => note.attributes.episodeApiId === episode.id)
+                .map((note) => <Note key={note.id} note={note} />)}
+          </motion.ul>
+        )}
+      </AnimatePresence>
     </div>
   );
 };
