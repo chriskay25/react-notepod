@@ -45,6 +45,7 @@ button {
   overflow: hidden;
   font-family: Montserrat;
   scroll-behavior: smooth;
+  background: radial-gradient(white, var(--gray-background));
 }
 
 .app-header {
@@ -57,7 +58,8 @@ button {
 
 .app-title {
   text-align: center;
-  font-size: calc(28px + 2vmin);
+  font-size: 3rem;
+  line-height: 3.5rem;
   font-weight: 300;
   color: rgb(255, 255, 255);
   text-shadow: 0px 1px 3px rgb(0, 0, 0);
@@ -69,23 +71,36 @@ ul {
   list-style: none;
 }
 
-input {
+input,
+button {
   border: none;
   border-radius: 5px;
 }
 
-input[type="submit"] {
+textarea {
+  outline: none;
+  font-family: Montserrat;
+}
+
+input[type="submit"],
+button {
   cursor: pointer;
 }
 
 .auth-forms-container {
+  height: calc(100% - 3.5rem);
+  width: 100%;
   display: flex;
-  width: 550px;
+  justify-content: center;
+  align-items: center;
+}
+
+.auth-forms {
+  position: relative;
+  display: flex;
+  align-items: center;
   padding: 20px;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  width: 550px;
   background: var(--gray-background);
   box-shadow: 0px 1px 2px 2px rgba(0, 0, 0, 0.5);
 }
@@ -97,7 +112,6 @@ input[type="submit"] {
 .auth-form {
   font-size: 1.3rem;
   text-align: left;
-  height: 210px;
   color: var(--gray-text);
 }
 
@@ -120,7 +134,7 @@ input[type="submit"] {
 }
 
 .auth-form input[type="submit"] {
-  margin: 25px 0;
+  margin: 15px 0;
   background: #aaaaaa;
   color: white;
   width: 50%;
@@ -128,31 +142,44 @@ input[type="submit"] {
 }
 
 .form-switch-bttn {
-  color: #205e91;
+  color: var(--gray-text);
+  font-size: 1.1rem;
   border: none;
   position: absolute;
   right: 20px;
   bottom: 20px;
 }
 
+.wave {
+  z-index: 2;
+  margin: 0 5px;
+  width: 5px;
+  height: 100px;
+  border-radius: 30%;
+  background: linear-gradient(-90deg, navy, #7ea7ffe3, navy);
+  box-shadow: 0px 0px 4px #000000;
+}
+
 .home {
   position: relative;
   display: flex;
-  height: 100vh;
+  height: calc(100vh - (3.5rem));
   overflow-y: scroll;
 }
 
 .nav-container {
   position: fixed;
-  top: calc(28px + 2vmin);
+  top: calc(3.5rem);
   left: 0;
   width: 100%;
-  height: calc(100% - (28px + 2vmin));
+  height: calc(100% - (3.5rem));
   max-width: 300px;
   background: var(--gray-background);
   color: var(--gray-text);
   padding: 2rem 1rem 1rem 1rem;
+  box-shadow: 0 2px 12px black;
   overflow-y: auto;
+  overflow-x: hidden;
   z-index: 3;
   transition: 0.5s ease;
 }
@@ -193,25 +220,15 @@ input[type="submit"] {
 }
 
 .podcast-preview-tiles {
-  margin-top: 1rem;
-  margin-bottom: 1rem;
-  padding-bottom: 4rem;
-  width: 100%;
+  margin: 0 auto 1rem auto;
+  padding-bottom: 1rem;
+  width: calc(100% - 16px);
   display: grid;
   justify-content: center;
   align-items: center;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 300px));
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
   overflow-y: auto;
-  animation: repel 1.5s ease 1s forwards;
-}
-
-@keyframes repel {
-  from {
-    grid-gap: 0px;
-  }
-  to {
-    grid-gap: 10px;
-  }
+  grid-gap: 10px;
 }
 
 .podcast-preview {
@@ -236,10 +253,9 @@ input[type="submit"] {
 }
 
 .podcast {
-  height: calc(100% - 48px + 2vmin);
   padding: 2rem;
   width: 100vw;
-  max-width: 1100px;
+  max-width: 1300px;
   margin: 0 auto;
   overflow-y: auto;
 }
@@ -265,13 +281,16 @@ input[type="submit"] {
 .podcast-title {
   grid-area: title;
   font: clamp(14px, 3.5vw, 40px) var(--primary-font);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 }
 
 .podcast-description {
   grid-area: description;
   font-size: clamp(12px, 2.2vw, 25px);
   font-family: PT Sans;
-  max-width: 45ch;
+  max-width: 60ch;
   color: rgb(80, 80, 80);
 }
 
@@ -306,8 +325,9 @@ input[type="submit"] {
 }
 
 .episode-header.note-mode {
-  max-height: 80px;
-  border-bottom: 2px solid rgba(57, 58, 46, 0.397);
+  padding: 5px;
+  background: var(--gray-text);
+  color: white;
 }
 
 .episode-title {
@@ -315,6 +335,9 @@ input[type="submit"] {
   font-weight: 400;
   width: 90%;
   grid-area: episode-title;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 }
 
 .episode-description {
@@ -355,7 +378,7 @@ input[type="submit"] {
 
 .episode-icons-container {
   display: flex;
-  margin: 0.3rem 0 0.5rem 0;
+  margin-top: 0.3rem;
   font-style: italic;
 }
 
@@ -365,13 +388,15 @@ input[type="submit"] {
 }
 
 .note-icon {
+  height: 30px;
   width: 30px;
 }
 
 .expand-contract-bttn {
-  width: fit-content;
-  height: auto;
+  width: 30px;
+  height: 30px;
   border: none;
+  border-radius: 5px;
   position: absolute;
   top: 10px;
   right: 10px;
@@ -379,42 +404,22 @@ input[type="submit"] {
 
 .episode {
   position: relative;
-  display: grid;
-  grid-template-areas:
-    "episode-title"
-    "episode-center"
-    "episode-center"
-    "episode-center"
-    "episode-center"
-    "episode-center"
-    "episode-center"
-    "episode-center"
-    "episode-center"
-    "player";
-  height: calc(100vh - (78px + 2vmin));
-  width: calc(100% - 40px);
+  max-height: 100%;
+  height: 100%;
+  width: 100%;
   max-width: 1200px;
-  margin: 20px auto;
-  padding: 10px 10px 0 10px;
-  border-radius: 5px;
+  margin: 0 auto;
   color: rgb(51, 51, 51);
-  background: var(--gray-background);
   box-shadow: 0 0 2px 1px rgba(0, 0, 0, 0.308);
   overflow: hidden;
   transition: 0.25s ease-in-out;
 }
 
 .episode-center {
-  width: 200%;
-  display: grid;
-  grid-template-columns: auto auto;
-  column-gap: 5px;
-  overflow: hidden;
-  grid-area: episode-center;
+  height: calc(100% - 200px);
 }
 
 .audio-player {
-  position: relative;
   width: 100%;
   max-height: 130px;
   display: flex;
@@ -425,14 +430,20 @@ input[type="submit"] {
   border: 3px solid var(--gray-text);
   background: rgb(48, 46, 46);
   z-index: 2;
-  grid-area: player;
+}
+
+.audio-player.note-mode {
+  position: absolute;
+  bottom: 0;
+  border: none;
+  border-radius: 0;
 }
 
 .audio-player svg {
   height: 40px;
   cursor: pointer;
   overflow: visible;
-  stroke: var(--gray-background);
+  stroke: white;
 }
 
 line {
@@ -509,6 +520,18 @@ input[type="range"]::-webkit-slider-runnable-track {
   right: 0;
 }
 
+.notepad {
+  height: 100%;
+  overflow: hidden;
+}
+
+.notepad-buttons {
+  background: gray;
+  color: white;
+  padding: 5px 10px;
+  margin-right: 5px;
+}
+
 .menu-hamburger {
   cursor: pointer;
   position: absolute;
@@ -539,12 +562,29 @@ input[type="range"]::-webkit-slider-runnable-track {
   display: flex;
 }
 
-@media screen and (max-width: 600px) {
-  .podcast-title-grid {
-    grid-template-areas: "image" "title" "description";
-    row-gap: 8px;
+@media screen and (max-width: 860px) {
+  .episode-center {
+    height: calc(100% - 150px);
   }
-  .auth-forms-container {
+  .audio-player {
+    padding: 15px 5px 10px 5px;
+  }
+  .audio-player svg {
+    height: 28px;
+  }
+  .audio-controls {
+    max-width: 170px;
+  }
+  .audio-player-times {
+    margin: 0;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  html {
+    font-size: 12px;
+  }
+  .auth-forms {
     display: block;
     width: 350px;
   }
@@ -553,19 +593,31 @@ input[type="range"]::-webkit-slider-runnable-track {
     display: flex;
     justify-content: center;
   }
-  .audio-player svg {
-    height: 28px;
-  }
-}
-
-@media screen and (max-width: 700px) {
-  html {
-    font-size: 12px;
-  }
   .podcast-preview-tiles {
     grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
   }
-  .note-icon {
-    width: 20px;
+  .podcast-title-grid {
+    grid-template-areas: "image" "title" "description";
+    row-gap: 8px;
+  }
+  .episode {
+    padding: 0;
+    margin: 0;
+    width: 100%;
+  }
+  .episode-center {
+    height: calc(100% - 150px);
+  }
+  .audio-player {
+    padding: 15px 5px 10px 5px;
+  }
+  .audio-player svg {
+    height: 28px;
+  }
+  .audio-controls {
+    max-width: 170px;
+  }
+  .audio-player-times {
+    margin: 0;
   }
 }
