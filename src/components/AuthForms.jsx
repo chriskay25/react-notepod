@@ -11,8 +11,8 @@ const AuthForms = () => {
   };
 
   return (
-    <div className="auth-forms">
-      <div className="auth-forms-container">
+    <div className="auth-forms-container">
+      <div className="auth-forms">
         <div className="user-icon-container">
           <img style={{ margin: "20px auto" }} src={userIcon} alt="user-icon" />
         </div>
