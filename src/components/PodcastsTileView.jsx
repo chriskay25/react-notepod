@@ -26,11 +26,12 @@ const PodcastsTileView = ({ podcasts, genre }) => {
               fontSize: "2rem",
             }}
           >
-            {genre.name}
+            {genre ? genre.name : "Popular"}
           </h3>
           <ul className="podcast-preview-tiles">
-            {podcasts &&
-              podcasts.map((pod) => <PodcastPreview key={pod.id} data={pod} />)}
+            {podcasts.map((pod) => (
+              <PodcastPreview key={pod.id} data={pod} />
+            ))}
           </ul>
         </div>
       )}
