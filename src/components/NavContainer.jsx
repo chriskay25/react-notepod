@@ -2,23 +2,23 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getPodcastsByGenre } from "../actions/podcasts";
 import { logout } from "../actions/users";
-import { menuToggle } from "../actions/ui";
+import { navToggle } from "../actions/ui";
 
 const NavContainer = ({ genres }) => {
   const dispatch = useDispatch();
-  const menuIsOpen = useSelector((state) => state.uiReducer.menuIsOpen);
+  const navIsOpen = useSelector((state) => state.uiReducer.navIsOpen);
 
   const handleHomeClick = () => dispatch({ type: "HOME_CLICK", payload: null });
 
   useEffect(() => {
-    // Close menu on logout
+    // Close nav on logout
     return () => {
-      dispatch(menuToggle(false));
+      dispatch(navToggle(false));
     };
   }, [dispatch]);
 
   return (
-    <nav className={`nav-container ${menuIsOpen ? "open" : "closed"}`}>
+    <nav className={`nav-container ${navIsOpen ? "open" : "closed"}`}>
       <div className="nav-section">
         <h2>PROFILE</h2>
         <ul className="nav-list">

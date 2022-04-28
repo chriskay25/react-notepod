@@ -1,6 +1,6 @@
-export const menuToggle = (bool) => {
+export const navToggle = (bool) => {
   return (dispatch) => {
-    dispatch({ type: "MENU_TOGGLE", payload: bool });
+    dispatch({ type: "NAV_TOGGLE", payload: bool });
   };
 };
 

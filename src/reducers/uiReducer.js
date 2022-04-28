@@ -1,19 +1,19 @@
-export const uiReducer = (state = { menuIsOpen: false }, action) => {
+export const uiReducer = (state = { navIsOpen: false }, action) => {
   switch (action.type) {
-    case "MENU_TOGGLE":
+    case "NAV_TOGGLE":
       return {
         ...state,
-        menuIsOpen: action.payload,
+        navIsOpen: action.payload,
       };
     case "HOME_CLICK":
       return {
         ...state,
-        menuIsOpen: false,
+        navIsOpen: false,
       };
     case "LOGOUT":
       return {
         ...state,
-        menuIsOpen: false,
+        navIsOpen: false,
       };
     default:
       return state;

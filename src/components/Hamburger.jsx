@@ -1,26 +1,26 @@
 import { useDispatch, useSelector } from "react-redux";
-import { menuToggle } from "../actions/ui";
+import { navToggle } from "../actions/ui";
 
 const Hamburger = () => {
   const dispatch = useDispatch();
-  const menuIsOpen = useSelector((state) => state.uiReducer.menuIsOpen);
+  const navIsOpen = useSelector((state) => state.uiReducer.navIsOpen);
 
-  const toggleMenu = (bool) => {
-    dispatch(menuToggle(bool));
+  const toggleNav = (bool) => {
+    dispatch(navToggle(bool));
   };
 
   return (
-    <span className="menu-hamburger" onClick={() => toggleMenu(!menuIsOpen)}>
+    <span className="nav-hamburger" onClick={() => toggleNav(!navIsOpen)}>
       <svg
         width="40px"
         height="40px"
         strokeWidth="2px"
-        stroke={menuIsOpen ? "#000" : "#fff"}
+        stroke={navIsOpen ? "#000" : "#fff"}
         strokeLinecap="round"
       >
-        <path d={menuIsOpen ? "m 0 10, 25 20" : "m 0 10, 25 0"} />
-        <path d="m 0 18, 25 0" style={{ opacity: menuIsOpen ? 0 : 1 }} />
-        <path d={menuIsOpen ? "m 0 30, 25 -20" : "m 0 26, 25 0"} />
+        <path d={navIsOpen ? "m 0 10, 25 20" : "m 0 10, 25 0"} />
+        <path d="m 0 18, 25 0" style={{ opacity: navIsOpen ? 0 : 1 }} />
+        <path d={navIsOpen ? "m 0 30, 25 -20" : "m 0 26, 25 0"} />
       </svg>
     </span>
   );
